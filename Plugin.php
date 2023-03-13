@@ -35,7 +35,7 @@ class Plugin extends Base
         );
         $this->template->hook->attach(
             'template:dashboard:project:after-title', 'TagiHoursView:dashboard/project_times_summary_single', [
-                'tagiTimes' => function ($column) { return $this->getTimesForColumn($column); }
+                'tagiTimes' => function ($projectId) { return $this->getTimesByProjectId($projectId); }
             ]
         );
     }

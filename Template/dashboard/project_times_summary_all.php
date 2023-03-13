@@ -21,7 +21,7 @@
     <span></span>
 
     <span class="thv-title-color">
-        <?php echo t('Übrig'); ?>:
+        <?php echo t('Remaining'); ?>:
     </span>
     <span class="thv-remaining-color">
         <?php echo round($times['estimated'] - $times['spent'], 2); ?>h
