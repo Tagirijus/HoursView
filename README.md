@@ -13,7 +13,7 @@ Compatibility
 #### Other Plugins & Action Plugins
 - _No known issues_
 #### Core Files & Templates
-- `01` Template override
+- `00` Template override
 - _No database changes_
 
 
