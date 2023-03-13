@@ -46,3 +46,12 @@
 .thv-dashboard-summary-all-text {
 	font-size:  1.25em;
 }
+
+.thv-dashboard-summary-single {
+	display: inline-block;
+	opacity: .7;
+	font-size: .9em;
+}
+.thv-dashboard-summary-single > span {
+	margin-left:  .5em;
+}
