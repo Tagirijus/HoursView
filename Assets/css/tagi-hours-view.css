@@ -1,13 +1,13 @@
 .thv-estimated-color {
-	color: rgb(200, 150, 50);
+	color: rgb(190, 90, 90);
 }
 
 .thv-spent-color {
-	color: rgb(10, 200, 50);
+	color: rgb(60, 180, 100);
 }
 
 .thv-remaining-color {
-	color: rgb(0, 150, 200);
+	color: rgb(40, 120, 170);
 }
 
 .thv-over-board-wrapper {
