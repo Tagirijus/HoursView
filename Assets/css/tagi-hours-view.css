@@ -1,3 +1,7 @@
+.thv-title-color {
+	color: rgb(100, 100, 150);
+}
+
 .thv-estimated-color {
 	color: rgb(190, 90, 90);
 }
@@ -22,10 +26,6 @@
 	margin-left:  2em;
 }
 
-.thv-over-board-line-title {
-	color: rgb(100, 100, 150);
-}
-
 .thv-over-board-line-caption {
 	margin-left: 1em;
 }
@@ -34,4 +34,15 @@
 	margin-left:  .5em;
 	font-size:  .9em;
 	opacity:  .7;
+}
+
+.thv-dashboard-summary-all {
+	margin-bottom:  1em;
+}
+.thv-dashboard-summary-all > span {
+	margin-left:  .5em;
+}
+
+.thv-dashboard-summary-all-text {
+	font-size:  1.25em;
 }

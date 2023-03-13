@@ -25,9 +25,17 @@ class Plugin extends Base
         );
         $this->template->hook->attach(
             'template:board:column:header', 'TagiHoursView:board/column_hours', [
-                'tagiTimes' => function ($column) {
-                    return $this->getTimesForColumn($column);
-                }
+                'tagiTimes' => function ($column) { return $this->getTimesForColumn($column); }
+            ]
+        );
+        $this->template->hook->attach(
+            'template:dashboard:show:after-filter-box', 'TagiHoursView:dashboard/project_times_summary_all', [
+                'tagiTimes' => function ($userId) { return $this->getTimesByUserId($userId); }
+            ]
+        );
+        $this->template->hook->attach(
+            'template:dashboard:project:after-title', 'TagiHoursView:dashboard/project_times_summary_single', [
+                'tagiTimes' => function ($column) { return $this->getTimesForColumn($column); }
             ]
         );
     }
@@ -186,6 +194,33 @@ class Plugin extends Base
         return $this->container['taskFinderModel']->getAll($projectId);
     }
 
+    /**
+     * This one gets all tasks for the user and their
+     * respecting times.
+     *
+     * Array output:
+     *
+     * [
+     *     'estimated' => 2,
+     *     'spent' => 1
+     * ]
+     *
+     * @param  integer $userId
+     * @return array
+     */
+    public function getTimesByUserId($userId)
+    {
+        $out = ['estimated' => 0, 'spent' => 0];
+
+        $userTasks = $this->container['taskFinderModel']->getUserQuery($userId)->findAll();
+        foreach ($userTasks as $task) {
+            $out['estimated'] += $task['time_estimated'];
+            $out['spent'] += $task['time_spent'];
+        }
+
+        return $out;
+    }
+
     public function getPluginName()
     {
         // Plugin Name MUST be identical to namespace for Plugin Directory to detect updated versions
@@ -205,7 +240,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.0.0';
+        return '1.1.0';
     }
 
     public function getCompatibleVersion()

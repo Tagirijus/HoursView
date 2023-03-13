@@ -3,7 +3,7 @@
 <div class="thv-over-board-wrapper">
 
     <div class="thv-over-board-line">
-        <span class="thv-over-board-line-title">
+        <span class="thv-title-color">
             <?php echo t('All') . ':'; ?>
         </span>
         <span class="thv-over-board-line-caption">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="thv-over-board-line">
-        <span class="thv-over-board-line-title">
+        <span class="thv-title-color">
             <?php echo t('Dashboard only') . ':'; ?>
         </span>
         <span class="thv-over-board-line-caption">
