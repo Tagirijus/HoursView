@@ -11,35 +11,146 @@ class Plugin extends Base
 {
     public function initialize()
     {
-        // Template Override
-        //  - Override name should be camelCase e.g. pluginNameExampleCamelCase
-        $this->template->setTemplateOverride('action/index', 'pluginNameExampleCamelCase:action/index');
-
         // CSS - Asset Hook
-        //  - Keep filename lowercase
-        $this->hook->on('template:layout:css', array('template' => 'plugins/TagiHoursView/Assets/css/plugin-name.css'));
+        $this->hook->on('template:layout:css', array('template' => 'plugins/TagiHoursView/Assets/css/tagi-hours-view.min.css'));
 
-        // JS - Asset Hook
-        //  - Keep filename lowercase
-        $this->hook->on('template:layout:js', array('template' => 'plugins/TagiHoursView/Assets/js/plugin-name.js'));
+        // Template Override
+        // $this->template->setTemplateOverride('board/table_column', 'TagiHoursView:board/table_column');
 
         // Views - Template Hook
-        //  - Override name should start lowercase e.g. pluginNameExampleCamelCase
-        $this->template->hook->attach('template:project-header:view-switcher-before-project-overview', 'pluginNameExampleCamelCase:project_header/actions');
+        $this->template->hook->attach(
+            'template:project:header:before', 'TagiHoursView:project/project_head_hours', [
+                'tagiTimes' => function ($projectId) { return $this->getTimesByProjectId($projectId); }
+            ]
+        );
+    }
 
-        // Views - Add Menu Item - Template Hook
-        //  - Override name should start lowercase e.g. pluginNameExampleCamelCase
-        //  - Example for menu item in kanboard settings page: $this->template->hook->attach('template:config:sidebar', 'pluginNameExampleCamelCase:config/sidebar');
+    public function onStartup()
+    {
+        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
+    }
 
-        // Extra Page - Routes
-        //  - Example: $this->route->addRoute('/my/custom/route', 'MyController', 'show', 'TagiHoursView');
-        //  - Must have the corresponding action in the matching controller
-        $this->route->addRoute('/ / ', ' ', ' ', 'TagiHoursView');
+    /**
+     * Get the estimated and spent times in the columns for
+     * all tasks with a given project id. The method also
+     * returns the data categorized into the columns, which
+     * are either visible on the dashboard and not (additionally).
+     *
+     * Array output:
+     *
+     * [
+     *     'all' => [
+     *         '_total' => [
+     *             'estimated' => 8,
+     *             'spent' => 6.5
+     *         ],
+     *         'column a' => [
+     *             'estimated' => 2,
+     *             'spent' => 1
+     *         ],
+     *         'column b' => [
+     *             'estimated' => 5,
+     *             'spent' => 4.5
+     *         ],
+     *         'column not-dashboard' => [
+     *             'estimated' => 1,
+     *             'spent' => 1
+     *         ]
+     *     ],
+     *     'dashboard' => [
+     *         '_total' => [
+     *             'estimated' => 7,
+     *             'spent' => 5.5
+     *         ],
+     *         'column a' => [
+     *             'estimated' => 2,
+     *             'spent' => 1
+     *         ],
+     *         'column b' => [
+     *             'estimated' => 5,
+     *             'spent' => 4.5
+     *         ]
+     *     ]
+     * ]
+     *
+     * @param  integer $projectId
+     * @return array
+     */
+    public function getTimesByProjectId($projectId)
+    {
+        $columns = $this->getColumnsByProjectId($projectId);
+        $tasks = $this->getTasksByProjectId($projectId);
 
-        // Helper
-        //  - Example: $this->helper->register('helperClassNameCamelCase', '\Kanboard\Plugin\TagiHoursView\Helper\HelperNameExampleStudlyCaps');
-        //  - Add each Helper in the 'use' section at the top of this file
-        $this->helper->register(' ', '\Kanboard\Plugin\  \Helper\  ');
+        $all = [
+            '_total' => [
+                'estimated' => 0,
+                'spent' => 0
+            ]
+        ];
+        $dashboard = $all;
+
+        foreach ($tasks as $task) {
+            if (isset($columns[$task['column_id']])) {
+                $col_name = $columns[$task['column_id']]['title'];
+            } else {
+                continue;
+            }
+
+            if (!isset($all[$col_name])) {
+                $all[$col_name] = ['estimated' => 0, 'spent' => 0];
+                if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
+                    $dashboard[$col_name] = ['estimated' => 0, 'spent' => 0];
+                }
+            }
+
+            $all[$col_name]['estimated'] += $task['time_estimated'];
+            $all[$col_name]['spent'] += $task['time_spent'];
+            $all['_total']['estimated'] += $task['time_estimated'];
+            $all['_total']['spent'] += $task['time_spent'];
+
+            if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
+                $dashboard[$col_name]['estimated'] += $task['time_estimated'];
+                $dashboard[$col_name]['spent'] += $task['time_spent'];
+                $dashboard['_total']['estimated'] += $task['time_estimated'];
+                $dashboard['_total']['spent'] += $task['time_spent'];
+            }
+        }
+
+        return [
+            'all' => $all,
+            'dashboard' => $dashboard
+        ];
+    }
+
+    /**
+     * Basically some kind of wrapper function for getting
+     * the array with all the columns for the project.
+     *
+     * Thus here the array-keys are the column id.
+     *
+     * @param  integer $projectId
+     * @return array
+     */
+    private function getColumnsByProjectId($projectId)
+    {
+        $out = [];
+        $columns = $this->container['columnModel']->getAll($projectId);
+        foreach ($columns as $column) {
+            $out[$column['id']] = $column;
+        }
+        return $out;
+    }
+
+    /**
+     * Basically some kind of wrapper function for getting
+     * the array with all the tasks for the project.
+     *
+     * @param  integer $projectId
+     * @return array
+     */
+    private function getTasksByProjectId($projectId)
+    {
+        return $this->container['taskFinderModel']->getAll($projectId);
     }
 
     public function getPluginName()

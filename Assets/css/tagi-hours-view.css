@@ -1,0 +1,31 @@
+.thv-estimated-color {
+	color: rgb(200, 150, 50);
+}
+
+.thv-spent-color {
+	color: rgb(10, 200, 50);
+}
+
+.thv-remaining-color {
+	color: rgb(0, 150, 200);
+}
+
+.thv-over-board-wrapper {
+	margin-top: -.5em;
+	margin-bottom: 1em;
+	text-align: center;
+	font-size: .75em;
+}
+
+.thv-over-board-line {
+	display:  inline-block;
+	margin-left:  2em;
+}
+
+.thv-over-board-line-title {
+	color: rgb(100, 100, 150);
+}
+
+.thv-over-board-line-caption {
+	margin-left: 1em;
+}
