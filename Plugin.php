@@ -19,8 +19,15 @@ class Plugin extends Base
 
         // Views - Template Hook
         $this->template->hook->attach(
-            'template:project:header:before', 'TagiHoursView:project/project_head_hours', [
+            'template:project:header:before', 'TagiHoursView:board/project_head_hours', [
                 'tagiTimes' => function ($projectId) { return $this->getTimesByProjectId($projectId); }
+            ]
+        );
+        $this->template->hook->attach(
+            'template:board:column:header', 'TagiHoursView:board/column_hours', [
+                'tagiTimes' => function ($column) {
+                    return $this->getTimesForColumn($column);
+                }
             ]
         );
     }
@@ -120,6 +127,32 @@ class Plugin extends Base
             'all' => $all,
             'dashboard' => $dashboard
         ];
+    }
+
+    /**
+     * Get an array with the calculated times for
+     * the given column array.
+     *
+     * Array output:
+     *
+     * [
+     *     'estimated' => 2,
+     *     'spent' => 1
+     * ]
+     *
+     * @param  array $column
+     * @return array
+     */
+    public function getTimesForColumn($column)
+    {
+        $out = ['estimated' => 0, 'spent' => 0];
+        if (isset($column['tasks'])) {
+            foreach ($column['tasks'] as $task) {
+                $out['estimated'] += $task['time_estimated'];
+                $out['spent'] += $task['time_spent'];
+            }
+        }
+        return $out;
     }
 
     /**
