@@ -1,5 +1,4 @@
-<!-- TODO -->
-<?php $times = ['estimated' => 0, 'spent' => 0, 'remaining' => 0]; ?>
+<?php $times = $this->tagiHoursViewHelper->getTimesFromTasks($paginator->getCollection())['all']['_total']; ?>
 
 <div class="thv-dashboard-summary-all thv-dashboard-summary-all-text">
 

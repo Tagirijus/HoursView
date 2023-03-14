@@ -79,14 +79,12 @@ class TagiHoursViewHelper extends Base
      *     ]
      * ]
      *
-     * @param  integer $projectId
+     * @param  array $tasks
+     * @param  array|NULL $columns
      * @return array
      */
-    public function getTimesByProjectId($projectId)
+    public function getTimesFromTasks($tasks, $columns = null)
     {
-        $columns = $this->getColumnsByProjectId($projectId);
-        $tasks = $this->getTasksByProjectId($projectId);
-
         $all = [
             '_total' => [
                 'estimated' => 0,
@@ -95,15 +93,18 @@ class TagiHoursViewHelper extends Base
             ]
         ];
         $dashboard = $all;
+        $col_name = 'null';
 
         foreach ($tasks as $task) {
-            if (isset($columns[$task['column_id']])) {
-                $col_name = $columns[$task['column_id']]['title'];
-            } else {
-                continue;
+            if (!is_null($columns)) {
+                if (isset($columns[$task['column_id']])) {
+                    $col_name = $columns[$task['column_id']]['title'];
+                } else {
+                    continue;
+                }
             }
 
-            if (!isset($all[$col_name])) {
+            if (!is_null($columns) && !isset($all[$col_name])) {
                 $all[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
                 if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
                     $dashboard[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
@@ -111,9 +112,11 @@ class TagiHoursViewHelper extends Base
             }
 
             // all: column times
-            $all[$col_name]['estimated'] += $task['time_estimated'];
-            $all[$col_name]['spent'] += $task['time_spent'];
-            $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            if (!is_null($columns)) {
+                $all[$col_name]['estimated'] += $task['time_estimated'];
+                $all[$col_name]['spent'] += $task['time_spent'];
+                $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            }
 
             // all: total times
             $all['_total']['estimated'] += $task['time_estimated'];
@@ -122,7 +125,7 @@ class TagiHoursViewHelper extends Base
 
 
             // dashboard times
-            if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
+            if (!is_null($columns) && $columns[$task['column_id']]['hide_in_dashboard'] != 1) {
                 // dashbord: column times
                 $dashboard[$col_name]['estimated'] += $task['time_estimated'];
                 $dashboard[$col_name]['spent'] += $task['time_spent'];
@@ -139,6 +142,25 @@ class TagiHoursViewHelper extends Base
             'all' => $all,
             'dashboard' => $dashboard
         ];
+    }
+
+    /**
+     * Get the estimated and spent times in the columns for
+     * all tasks with a given project id.
+     *
+     * This method wraps basically the getTimesFromTasks()
+     * method, but with a given project id to get the
+     * linked tasks.
+     *
+     * @param  integer $projectId
+     * @return array
+     */
+    public function getTimesByProjectId($projectId)
+    {
+        $tasks = $this->getTasksByProjectId($projectId);
+        $columns = $this->getColumnsByProjectId($projectId);
+
+        return $this->getTimesFromTasks($tasks, $columns);
     }
 
     /**
