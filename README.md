@@ -5,6 +5,18 @@
 This plugin displays and calculates the hours according to the tasks set up hours in different places like the dashboard, for example.
 
 
+Screenshots
+-------------
+
+**Board view**
+
+![TagiHoursView board view](../master/Screenshots/TagiHoursView_board.png)
+
+**Dashboard view**
+
+![TagiHoursView dashboard view](../master/Screenshots/TagiHoursView_dashboard.png)
+
+
 Compatibility
 -------------
 
