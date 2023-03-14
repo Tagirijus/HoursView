@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.3
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Moved the calculation methods into a helper
+- Added time calculations into the search results
+
 ## v1.2
 
 ### What's Changed

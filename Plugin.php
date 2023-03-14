@@ -15,7 +15,7 @@ class Plugin extends Base
         $this->hook->on('template:layout:css', array('template' => 'plugins/TagiHoursView/Assets/css/tagi-hours-view.min.css'));
 
         // Template Override
-        // $this->template->setTemplateOverride('board/table_column', 'TagiHoursView:board/table_column');
+        $this->template->setTemplateOverride('search/results', 'TagiHoursView:search/results');
 
         // Views - Template Hook
         $this->template->hook->attach(
@@ -286,7 +286,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.2.0';
+        return '1.3.0';
     }
 
     public function getCompatibleVersion()
