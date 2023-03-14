@@ -22,7 +22,7 @@
             <?php echo t('Remaining') . ':'; ?>
         </span>
         <span class="thv-remaining-color">
-            <?php echo round($times['all']['_total']['estimated'] - $times['all']['_total']['spent'], 2) . 'h'; ?>
+            <?php echo round($times['all']['_total']['remaining'], 2) . 'h'; ?>
         </span>
     </div>
 
@@ -46,7 +46,7 @@
             <?php echo t('Remaining') . ':'; ?>
         </span>
         <span class="thv-remaining-color">
-            <?php echo round($times['dashboard']['_total']['estimated'] - $times['dashboard']['_total']['spent'], 2) . 'h'; ?>
+            <?php echo round($times['dashboard']['_total']['remaining'], 2) . 'h'; ?>
         </span>
     </div>
 

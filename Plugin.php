@@ -46,10 +46,33 @@ class Plugin extends Base
     }
 
     /**
+     * Calculates the remaining time for the given estimated
+     * and the spent time. In case prevent_negative is True,
+     * it returns, for example, no negative values, but
+     * 0 then.
+     *
+     * @param  float  $estimated
+     * @param  float  $spent
+     * @param  boolean $prevent_negative
+     * @return float
+     */
+    public function calculateRemaining($estimated, $spent, $prevent_negative = True)
+    {
+        if ($estimated - $spent < 0 && $prevent_negative) {
+            return 0;
+        } else {
+            return $estimated - $spent;
+        }
+    }
+
+    /**
      * Get the estimated and spent times in the columns for
      * all tasks with a given project id. The method also
      * returns the data categorized into the columns, which
      * are either visible on the dashboard and not (additionally).
+     *
+     * New since v1.2.0: remaining
+     *
      *
      * Array output:
      *
@@ -57,33 +80,40 @@ class Plugin extends Base
      *     'all' => [
      *         '_total' => [
      *             'estimated' => 8,
-     *             'spent' => 6.5
+     *             'spent' => 6.5,
+     *             'remaining' => 1.5
      *         ],
      *         'column a' => [
      *             'estimated' => 2,
-     *             'spent' => 1
+     *             'spent' => 1,
+     *             'remaining' => 1
      *         ],
      *         'column b' => [
      *             'estimated' => 5,
-     *             'spent' => 4.5
+     *             'spent' => 4.5,
+     *             'remaining' => 0.5
      *         ],
      *         'column not-dashboard' => [
      *             'estimated' => 1,
-     *             'spent' => 1
+     *             'spent' => 1,
+     *             'remaining' => 0
      *         ]
      *     ],
      *     'dashboard' => [
      *         '_total' => [
      *             'estimated' => 7,
-     *             'spent' => 5.5
+     *             'spent' => 5.5,
+     *             'remaining' => 1.5
      *         ],
      *         'column a' => [
      *             'estimated' => 2,
-     *             'spent' => 1
+     *             'spent' => 1,
+     *             'remaining' => 1
      *         ],
      *         'column b' => [
      *             'estimated' => 5,
-     *             'spent' => 4.5
+     *             'spent' => 4.5,
+     *             'remaining' => 0.5
      *         ]
      *     ]
      * ]
@@ -99,7 +129,8 @@ class Plugin extends Base
         $all = [
             '_total' => [
                 'estimated' => 0,
-                'spent' => 0
+                'spent' => 0,
+                'remaining' => 0
             ]
         ];
         $dashboard = $all;
@@ -112,22 +143,34 @@ class Plugin extends Base
             }
 
             if (!isset($all[$col_name])) {
-                $all[$col_name] = ['estimated' => 0, 'spent' => 0];
+                $all[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
                 if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
-                    $dashboard[$col_name] = ['estimated' => 0, 'spent' => 0];
+                    $dashboard[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
                 }
             }
 
+            // all: column times
             $all[$col_name]['estimated'] += $task['time_estimated'];
             $all[$col_name]['spent'] += $task['time_spent'];
+            $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+
+            // all: total times
             $all['_total']['estimated'] += $task['time_estimated'];
             $all['_total']['spent'] += $task['time_spent'];
+            $all['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
 
+
+            // dashboard times
             if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
+                // dashbord: column times
                 $dashboard[$col_name]['estimated'] += $task['time_estimated'];
                 $dashboard[$col_name]['spent'] += $task['time_spent'];
+                $dashboard[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+
+                // dashboard: total times
                 $dashboard['_total']['estimated'] += $task['time_estimated'];
                 $dashboard['_total']['spent'] += $task['time_spent'];
+                $dashboard['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
             }
         }
 
@@ -145,7 +188,8 @@ class Plugin extends Base
      *
      * [
      *     'estimated' => 2,
-     *     'spent' => 1
+     *     'spent' => 1,
+     *     'remaining' => 1
      * ]
      *
      * @param  array $column
@@ -153,11 +197,12 @@ class Plugin extends Base
      */
     public function getTimesForColumn($column)
     {
-        $out = ['estimated' => 0, 'spent' => 0];
+        $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
         if (isset($column['tasks'])) {
             foreach ($column['tasks'] as $task) {
                 $out['estimated'] += $task['time_estimated'];
                 $out['spent'] += $task['time_spent'];
+                $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
             }
         }
         return $out;
@@ -210,12 +255,13 @@ class Plugin extends Base
      */
     public function getTimesByUserId($userId)
     {
-        $out = ['estimated' => 0, 'spent' => 0];
+        $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
 
         $userTasks = $this->container['taskFinderModel']->getUserQuery($userId)->findAll();
         foreach ($userTasks as $task) {
             $out['estimated'] += $task['time_estimated'];
             $out['spent'] += $task['time_spent'];
+            $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
         }
 
         return $out;
@@ -240,7 +286,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.1.0';
+        return '1.2.0';
     }
 
     public function getCompatibleVersion()

@@ -14,7 +14,7 @@
     <span></span>
 
     <span class="thv-remaining-color">
-        <?php echo round($times['dashboard']['_total']['estimated'] - $times['dashboard']['_total']['spent'], 2); ?>h
+        <?php echo round($times['dashboard']['_total']['remaining'], 2); ?>h
     </span>
 
 </div>

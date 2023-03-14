@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.2
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Changed that "remaining" calculation could fall below zero, thus not representing not-started-yet tasks to correctly be represented in the time calculation. This could happen, if you would spend more time for tasks than the estimation was, thus subtracting too much from the overall calculation. The fix is to substract the estimated time at max.
+
+
 ## v1.1
 
 ### What's Changed
