@@ -1,10 +1,10 @@
 <?php
 
-namespace Kanboard\Plugin\TagiHoursView;
+namespace Kanboard\Plugin\TagiKPHoursView;
 
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Core\Translator;
-// use Kanboard\Plugin\TagiHoursView\Helper;  // Helper Class and Filename should be exact
+// use Kanboard\Plugin\TagiKPHoursView\Helper;  // Helper Class and Filename should be exact
 // use Kanboard\Helper;  // Add core Helper for using forms etc. inside external templates
 
 class Plugin extends Base
@@ -12,40 +12,40 @@ class Plugin extends Base
     public function initialize()
     {
         // Helper
-        $this->helper->register('tagiHoursViewHelper', '\Kanboard\Plugin\TagiHoursView\Helper\TagiHoursViewHelper');
+        $this->helper->register('tagiKPHoursViewHelper', '\Kanboard\Plugin\TagiKPHoursView\Helper\TagiKPHoursViewHelper');
 
         // CSS - Asset Hook
-        $this->hook->on('template:layout:css', array('template' => 'plugins/TagiHoursView/Assets/css/tagi-hours-view.min.css'));
+        $this->hook->on('template:layout:css', array('template' => 'plugins/TagiKPHoursView/Assets/css/tagi-hours-view.min.css'));
 
         // Template Override
-        $this->template->setTemplateOverride('search/results', 'TagiHoursView:search/results');
+        $this->template->setTemplateOverride('search/results', 'TagiKPHoursView:search/results');
 
         // Views - Template Hook
         $this->template->hook->attach(
-            'template:project:header:before', 'TagiHoursView:board/project_head_hours', [
+            'template:project:header:before', 'TagiKPHoursView:board/project_head_hours', [
                 'tagiTimes' => function ($projectId) {
-                    return $this->helper->tagiHoursViewHelper->getTimesByProjectId($projectId);
+                    return $this->helper->tagiKPHoursViewHelper->getTimesByProjectId($projectId);
                 }
             ]
         );
         $this->template->hook->attach(
-            'template:board:column:header', 'TagiHoursView:board/column_hours', [
+            'template:board:column:header', 'TagiKPHoursView:board/column_hours', [
                 'tagiTimes' => function ($column) {
-                    return $this->helper->tagiHoursViewHelper->getTimesForColumn($column);
+                    return $this->helper->tagiKPHoursViewHelper->getTimesForColumn($column);
                 }
             ]
         );
         $this->template->hook->attach(
-            'template:dashboard:show:after-filter-box', 'TagiHoursView:dashboard/project_times_summary_all', [
+            'template:dashboard:show:after-filter-box', 'TagiKPHoursView:dashboard/project_times_summary_all', [
                 'tagiTimes' => function ($userId) {
-                    return $this->helper->tagiHoursViewHelper->getTimesByUserId($userId);
+                    return $this->helper->tagiKPHoursViewHelper->getTimesByUserId($userId);
                 }
             ]
         );
         $this->template->hook->attach(
-            'template:dashboard:project:after-title', 'TagiHoursView:dashboard/project_times_summary_single', [
+            'template:dashboard:project:after-title', 'TagiKPHoursView:dashboard/project_times_summary_single', [
                 'tagiTimes' => function ($projectId) {
-                    return $this->helper->tagiHoursViewHelper->getTimesByProjectId($projectId);
+                    return $this->helper->tagiKPHoursViewHelper->getTimesByProjectId($projectId);
                 }
             ]
         );
@@ -60,7 +60,7 @@ class Plugin extends Base
     {
         // Plugin Name MUST be identical to namespace for Plugin Directory to detect updated versions
         // Do not translate the plugin name here
-        return 'TagiHoursView';
+        return 'TagiKPHoursView';
     }
 
     public function getPluginDescription()
@@ -75,7 +75,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.3.0';
+        return '1.4.0';
     }
 
     public function getCompatibleVersion()
@@ -89,6 +89,6 @@ class Plugin extends Base
 
     public function getPluginHomepage()
     {
-        return 'https://github.com/Tagirijus/kanboard-TagiHoursView';
+        return 'https://github.com/Tagirijus/TagiKPHoursView';
     }
 }
