@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.5
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Renamed plugin again
+
+
 ## v1.4
 
 ### What's Changed

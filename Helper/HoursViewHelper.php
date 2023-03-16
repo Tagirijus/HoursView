@@ -1,10 +1,10 @@
 <?php
 
-namespace Kanboard\Plugin\TagiKPHoursView\Helper;
+namespace Kanboard\Plugin\HoursView\Helper;
 
 use Kanboard\Core\Base;
 
-class TagiKPHoursViewHelper extends Base
+class HoursViewHelper extends Base
 {
     /**
      * Calculates the remaining time for the given estimated

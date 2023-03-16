@@ -1,4 +1,4 @@
-# TagiKPHoursView
+# HoursView
 
 #### _Plugin for [Kanboard](https://github.com/fguillot/kanboard "Kanboard - Kanban Project Management Software")_
 
@@ -10,11 +10,11 @@ Screenshots
 
 **Board view**
 
-![TagiHoursView board view](../master/Screenshots/TagiHoursView_board.png)
+![HoursView board view](../master/Screenshots/HoursView_board.png)
 
 **Dashboard view**
 
-![TagiHoursView dashboard view](../master/Screenshots/TagiHoursView_dashboard.png)
+![HoursView dashboard view](../master/Screenshots/HoursView_dashboard.png)
 
 
 Compatibility
@@ -39,7 +39,7 @@ Installation
 ------------
 
 1. Go into Kanboards `plugins/` folder
-2. `git clone https://github.com/Tagirijus/TagiKPHoursView`
+2. `git clone https://github.com/Tagirijus/HoursView`
 
 
 Translations

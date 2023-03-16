@@ -1,4 +1,4 @@
-<?php $times = $this->tagiKPHoursViewHelper->getTimesFromTasks($paginator->getCollection())['all']['_total']; ?>
+<?php $times = $this->hoursViewHelper->getTimesFromTasks($paginator->getCollection())['all']['_total']; ?>
 
 <div class="thv-dashboard-summary-all thv-dashboard-summary-all-text">
 
