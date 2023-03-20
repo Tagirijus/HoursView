@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.7
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Level will be shown with 0 time, if it has a label now
+
+
 ## v1.6
 
 ### What's Changed
