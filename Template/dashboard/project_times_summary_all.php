@@ -9,7 +9,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 1 -->
-    <?php if ($times['level_1']['_has_times']): ?>
+    <?php if ($times['level_1']['_has_times'] || $captions['level_1'] != 'Level 1'): ?>
 
         <tr>
             <td>
@@ -50,7 +50,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 2 -->
-    <?php if ($times['level_2']['_has_times']): ?>
+    <?php if ($times['level_2']['_has_times'] || $captions['level_2'] != 'Level 2'): ?>
 
         <tr>
             <td>
@@ -91,7 +91,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 3 -->
-    <?php if ($times['level_3']['_has_times']): ?>
+    <?php if ($times['level_3']['_has_times'] || $captions['level_3'] != 'Level 3'): ?>
 
         <tr>
             <td>
@@ -132,7 +132,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 4 -->
-    <?php if ($times['level_4']['_has_times']): ?>
+    <?php if ($times['level_4']['_has_times'] || $captions['level_4'] != 'Level 4'): ?>
 
         <tr>
             <td>
