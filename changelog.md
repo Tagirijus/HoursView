@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v1.6
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Added levels categorization to select columns, which should be summed up in a group and which can be labelled
+- Added more intuitive time printing
+
+
 ## v1.5
 
 ### What's Changed
