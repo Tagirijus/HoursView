@@ -4,8 +4,7 @@ namespace Kanboard\Plugin\HoursView;
 
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Core\Translator;
-// use Kanboard\Plugin\HoursView\Helper;  // Helper Class and Filename should be exact
-// use Kanboard\Helper;  // Add core Helper for using forms etc. inside external templates
+
 
 class Plugin extends Base
 {
@@ -49,6 +48,11 @@ class Plugin extends Base
                 }
             ]
         );
+        $this->template->hook->attach(
+            'template:config:sidebar', 'HoursView:config/hoursview_config_sidebar');
+
+        // Extra Page - Routes
+        $this->route->addRoute('/hoursview/config', 'HoursViewController', 'show', 'HoursView');
     }
 
     public function onStartup()
