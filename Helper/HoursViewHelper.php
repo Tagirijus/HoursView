@@ -72,11 +72,11 @@ class HoursViewHelper extends Base
      */
     public function getTimesFromTasks($tasks)
     {
-        $levels = [
-            'level_1' => explode(',', $this->configModel->get('hoursview_level_1', '')),
-            'level_2' => explode(',', $this->configModel->get('hoursview_level_2', '')),
-            'level_3' => explode(',', $this->configModel->get('hoursview_level_3', '')),
-            'level_4' => explode(',', $this->configModel->get('hoursview_level_4', ''))
+        $levels_columns = [
+            'level_1' => explode(',', $this->configModel->get('hoursview_level_1_columns', '')),
+            'level_2' => explode(',', $this->configModel->get('hoursview_level_2_columns', '')),
+            'level_3' => explode(',', $this->configModel->get('hoursview_level_3_columns', '')),
+            'level_4' => explode(',', $this->configModel->get('hoursview_level_4_columns', ''))
         ];
 
         $all = [
@@ -118,10 +118,10 @@ class HoursViewHelper extends Base
 
 
             // level times
-            $this->addTimesForLevel($level_1, 'level_1', $levels, $col_name, $task);
-            $this->addTimesForLevel($level_2, 'level_2', $levels, $col_name, $task);
-            $this->addTimesForLevel($level_3, 'level_3', $levels, $col_name, $task);
-            $this->addTimesForLevel($level_4, 'level_4', $levels, $col_name, $task);
+            $this->addTimesForLevel($level_1, 'level_1', $levels_columns, $col_name, $task);
+            $this->addTimesForLevel($level_2, 'level_2', $levels_columns, $col_name, $task);
+            $this->addTimesForLevel($level_3, 'level_3', $levels_columns, $col_name, $task);
+            $this->addTimesForLevel($level_4, 'level_4', $levels_columns, $col_name, $task);
         }
 
         return [
@@ -287,19 +287,6 @@ class HoursViewHelper extends Base
      */
     public function getTimesByUserId($userId)
     {
-        // $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
-
-        // $userTasks = $this->taskFinderModel->getUserQuery($userId)->findAll();
-        // foreach ($userTasks as $task) {
-        //     $this->logger->info(json_encode($task));
-        //     $out['estimated'] += $task['time_estimated'];
-        //     $out['spent'] += $task['time_spent'];
-        //     $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
-        // }
-
-        // return $out;
-
-        // $tasks = $this->taskFinderModel->getUserQuery($userId)->findAll();
         $tasks = $this->taskFinderModel->getExtendedQuery()
             ->beginOr()
             ->eq(TaskModel::TABLE.'.owner_id', $userId)
@@ -310,5 +297,21 @@ class HoursViewHelper extends Base
             ->findAll();
 
         return $this->getTimesFromTasks($tasks);
+    }
+
+    /**
+     * Get level captions from the config.
+     *
+     * @return array
+     */
+    public function getLevelCaptions()
+    {
+        $levels_captions = [
+            'level_1' => $this->configModel->get('hoursview_level_1_caption', 'Level 1'),
+            'level_2' => $this->configModel->get('hoursview_level_2_caption', 'Level 2'),
+            'level_3' => $this->configModel->get('hoursview_level_3_caption', 'Level 3'),
+            'level_4' => $this->configModel->get('hoursview_level_4_caption', 'Level 4')
+        ];
+        return $levels_captions;
     }
 }

@@ -1,4 +1,9 @@
-<?php $times = $tagiTimes($project['id']); ?>
+<?php
+
+$times = $tagiTimes($project['id']);
+$captions = $this->hoursViewHelper->getLevelCaptions();
+
+?>
 
 <div class="thv-table-board-wrapper">
 
@@ -10,7 +15,9 @@
 
         <tr>
             <td>
-                <span class="thv-weak-color">Level 1:</span>
+                <span class="thv-weak-color">
+                    <?= $captions['level_1'] ?>:
+                </span>
             </td>
 
             <td>
@@ -49,7 +56,9 @@
 
         <tr>
             <td>
-                <span class="thv-weak-color">Level 2:</span>
+                <span class="thv-weak-color">
+                    <?= $captions['level_2'] ?>:
+                </span>
             </td>
 
             <td>
@@ -88,7 +97,9 @@
 
         <tr>
             <td>
-                <span class="thv-weak-color">Level 3:</span>
+                <span class="thv-weak-color">
+                    <?= $captions['level_3'] ?>:
+                </span>
             </td>
 
             <td>
@@ -127,7 +138,9 @@
 
         <tr>
             <td>
-                <span class="thv-weak-color">Level 4:</span>
+                <span class="thv-weak-color">
+                    <?= $captions['level_4'] ?>:
+                </span>
             </td>
 
             <td>
@@ -164,7 +177,7 @@
     <!-- ALL -->
     <?php if ($times['all']['_has_times']): ?>
 
-        <tr style="opacity: .6; font-size: .6em;">
+        <tr style="opacity: .7; font-size: .7em;">
             <td>
                 <span class="thv-weak-color">All:</span>
             </td>

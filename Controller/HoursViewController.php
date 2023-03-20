@@ -16,10 +16,14 @@ class HoursViewController extends \Kanboard\Controller\PluginController
     {
         $this->response->html($this->helper->layout->config('HoursView:config/hoursview_config', [
             'title' => t('HoursView') . ' &gt; ' . t('Settings'),
-            'level_1' => $this->configModel->get('hoursview_level_1', ''),
-            'level_2' => $this->configModel->get('hoursview_level_2', ''),
-            'level_3' => $this->configModel->get('hoursview_level_3', ''),
-            'level_4' => $this->configModel->get('hoursview_level_4', '')
+            'level_1_columns' => $this->configModel->get('hoursview_level_1_columns', ''),
+            'level_2_columns' => $this->configModel->get('hoursview_level_2_columns', ''),
+            'level_3_columns' => $this->configModel->get('hoursview_level_3_columns', ''),
+            'level_4_columns' => $this->configModel->get('hoursview_level_4_columns', ''),
+            'level_1_caption' => $this->configModel->get('hoursview_level_1_caption', ''),
+            'level_2_caption' => $this->configModel->get('hoursview_level_2_caption', ''),
+            'level_3_caption' => $this->configModel->get('hoursview_level_3_caption', ''),
+            'level_4_caption' => $this->configModel->get('hoursview_level_4_caption', '')
         ]));
     }
 
@@ -31,10 +35,14 @@ class HoursViewController extends \Kanboard\Controller\PluginController
         $form = $this->request->getValues();
 
         $values = [
-            'hoursview_level_1' => $form['level_1'],
-            'hoursview_level_2' => $form['level_2'],
-            'hoursview_level_3' => $form['level_3'],
-            'hoursview_level_4' => $form['level_4']
+            'hoursview_level_1_columns' => $form['level_1_columns'],
+            'hoursview_level_2_columns' => $form['level_2_columns'],
+            'hoursview_level_3_columns' => $form['level_3_columns'],
+            'hoursview_level_4_columns' => $form['level_4_columns'],
+            'hoursview_level_1_caption' => $form['level_1_caption'],
+            'hoursview_level_2_caption' => $form['level_2_caption'],
+            'hoursview_level_3_caption' => $form['level_3_caption'],
+            'hoursview_level_4_caption' => $form['level_4_caption']
         ];
 
         $this->languageModel->loadCurrentLanguage();
