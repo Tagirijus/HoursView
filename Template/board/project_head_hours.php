@@ -1,53 +1,204 @@
 <?php $times = $tagiTimes($project['id']); ?>
 
-<div class="thv-over-board-wrapper">
+<div class="thv-table-board-wrapper">
 
-    <div class="thv-over-board-line">
-        <span class="thv-title-color">
-            <?php echo t('All') . ':'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Estimated') . ':'; ?>
-        </span>
-        <span class="thv-estimated-color">
-            <?php echo round($times['all']['_total']['estimated'], 2) . 'h'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Spent') . ':'; ?>
-        </span>
-        <span class="thv-spent-color">
-            <?php echo round($times['all']['_total']['spent'], 2) . 'h'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Remaining') . ':'; ?>
-        </span>
-        <span class="thv-remaining-color">
-            <?php echo round($times['all']['_total']['remaining'], 2) . 'h'; ?>
-        </span>
-    </div>
+<table class="thv-table-board">
 
-    <div class="thv-over-board-line">
-        <span class="thv-title-color">
-            <?php echo t('Dashboard only') . ':'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Estimated') . ':'; ?>
-        </span>
-        <span class="thv-estimated-color">
-            <?php echo round($times['dashboard']['_total']['estimated'], 2) . 'h'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Spent') . ':'; ?>
-        </span>
-        <span class="thv-spent-color">
-            <?php echo round($times['dashboard']['_total']['spent'], 2) . 'h'; ?>
-        </span>
-        <span class="thv-over-board-line-caption">
-            <?php echo t('Remaining') . ':'; ?>
-        </span>
-        <span class="thv-remaining-color">
-            <?php echo round($times['dashboard']['_total']['remaining'], 2) . 'h'; ?>
-        </span>
-    </div>
 
+    <!-- LEVEL 1 -->
+    <?php if ($times['level_1']['_has_times']): ?>
+
+        <tr>
+            <td>
+                <span class="thv-weak-color">Level 1:</span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Estimated'); ?>:
+                </span>
+                <span class="thv-estimated-color">
+                    <?= round($times['level_1']['_total']['estimated'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Spent'); ?>:
+                </span>
+                <span class="thv-spent-color">
+                    <?= round($times['level_1']['_total']['spent'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Remaining'); ?>:
+                </span>
+                <span class="thv-remaining-color">
+                    <?= round($times['level_1']['_total']['remaining'], 2); ?>h
+                </span>
+            </td>
+        </tr>
+
+    <?php endif ?>
+
+
+    <!-- LEVEL 2 -->
+    <?php if ($times['level_2']['_has_times']): ?>
+
+        <tr>
+            <td>
+                <span class="thv-weak-color">Level 2:</span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Estimated'); ?>:
+                </span>
+                <span class="thv-estimated-color">
+                    <?= round($times['level_2']['_total']['estimated'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Spent'); ?>:
+                </span>
+                <span class="thv-spent-color">
+                    <?= round($times['level_2']['_total']['spent'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Remaining'); ?>:
+                </span>
+                <span class="thv-remaining-color">
+                    <?= round($times['level_2']['_total']['remaining'], 2); ?>h
+                </span>
+            </td>
+        </tr>
+
+    <?php endif ?>
+
+
+    <!-- LEVEL 3 -->
+    <?php if ($times['level_3']['_has_times']): ?>
+
+        <tr>
+            <td>
+                <span class="thv-weak-color">Level 3:</span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Estimated'); ?>:
+                </span>
+                <span class="thv-estimated-color">
+                    <?= round($times['level_3']['_total']['estimated'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Spent'); ?>:
+                </span>
+                <span class="thv-spent-color">
+                    <?= round($times['level_3']['_total']['spent'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Remaining'); ?>:
+                </span>
+                <span class="thv-remaining-color">
+                    <?= round($times['level_3']['_total']['remaining'], 2); ?>h
+                </span>
+            </td>
+        </tr>
+
+    <?php endif ?>
+
+
+    <!-- LEVEL 4 -->
+    <?php if ($times['level_4']['_has_times']): ?>
+
+        <tr>
+            <td>
+                <span class="thv-weak-color">Level 4:</span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Estimated'); ?>:
+                </span>
+                <span class="thv-estimated-color">
+                    <?= round($times['level_4']['_total']['estimated'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Spent'); ?>:
+                </span>
+                <span class="thv-spent-color">
+                    <?= round($times['level_4']['_total']['spent'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Remaining'); ?>:
+                </span>
+                <span class="thv-remaining-color">
+                    <?= round($times['level_4']['_total']['remaining'], 2); ?>h
+                </span>
+            </td>
+        </tr>
+
+    <?php endif ?>
+
+
+    <!-- ALL -->
+    <?php if ($times['all']['_has_times']): ?>
+
+        <tr style="opacity: .6; font-size: .6em;">
+            <td>
+                <span class="thv-weak-color">All:</span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Estimated'); ?>:
+                </span>
+                <span class="thv-estimated-color">
+                    <?= round($times['all']['_total']['estimated'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Spent'); ?>:
+                </span>
+                <span class="thv-spent-color">
+                    <?= round($times['all']['_total']['spent'], 2); ?>h
+                </span>
+            </td>
+
+            <td>
+                <span class="thv-title-color">
+                    <?= t('Remaining'); ?>:
+                </span>
+                <span class="thv-remaining-color">
+                    <?= round($times['all']['_total']['remaining'], 2); ?>h
+                </span>
+            </td>
+        </tr>
+
+    <?php endif ?>
+
+
+</table>
 </div>

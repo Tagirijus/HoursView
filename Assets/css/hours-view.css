@@ -1,3 +1,7 @@
+.thv-weak-color {
+	color: rgb(80, 80, 100);
+}
+
 .thv-title-color {
 	color: rgb(100, 100, 150);
 }
@@ -36,17 +40,6 @@
 	opacity:  .7;
 }
 
-.thv-dashboard-summary-all {
-	margin-bottom:  1em;
-}
-.thv-dashboard-summary-all > span {
-	margin-left:  .5em;
-}
-
-.thv-dashboard-summary-all-text {
-	font-size:  1.25em;
-}
-
 .thv-dashboard-summary-single {
 	display: inline-block;
 	opacity: .7;
@@ -54,4 +47,22 @@
 }
 .thv-dashboard-summary-single > span {
 	margin-left:  .5em;
+}
+
+.thv-table-dashboard > tbody > tr > td {
+	font-size: 1.25em;
+	padding:  0;
+}
+
+.thv-table-board-wrapper {
+	margin-bottom: 1em;
+}
+.thv-table-board-wrapper > table {
+	width:  50%;
+}
+.thv-table-board {
+	margin: auto;
+}
+.thv-table-board > tbody > tr > td {
+	padding:  0;
 }

@@ -5,7 +5,7 @@
     <?= $this->form->csrf() ?>
 
     <p>
-        <?= t('Each level can have comma seperated column names. This columns will be used for this levels time calculation.') ?>
+        <?= t('Each level can have comma seperated column names. This columns will be used for this levels time calculation. Use lowercase for the column names.') ?>
     </p>
     <div class="task-form-container">
 

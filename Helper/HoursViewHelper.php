@@ -3,6 +3,10 @@
 namespace Kanboard\Plugin\HoursView\Helper;
 
 use Kanboard\Core\Base;
+use Kanboard\Model\TaskModel;
+use Kanboard\Model\ProjectModel;
+use Kanboard\Model\ColumnModel;
+use Kanboard\Model\SubtaskModel;
 
 class HoursViewHelper extends Base
 {
@@ -28,9 +32,7 @@ class HoursViewHelper extends Base
 
     /**
      * Get the estimated and spent times in the columns for
-     * all tasks with a given project id. The method also
-     * returns the data categorized into the columns, which
-     * are either visible on the dashboard and not (additionally).
+     * the total (all) and the levels (level_1, level_2, ...).
      *
      * New since v1.2.0: remaining
      *
@@ -44,23 +46,13 @@ class HoursViewHelper extends Base
      *             'spent' => 6.5,
      *             'remaining' => 1.5
      *         ],
-     *         'column a' => [
-     *             'estimated' => 2,
-     *             'spent' => 1,
-     *             'remaining' => 1
-     *         ],
      *         'column b' => [
      *             'estimated' => 5,
      *             'spent' => 4.5,
      *             'remaining' => 0.5
-     *         ],
-     *         'column not-dashboard' => [
-     *             'estimated' => 1,
-     *             'spent' => 1,
-     *             'remaining' => 0
      *         ]
      *     ],
-     *     'dashboard' => [
+     *     'level_1' => [
      *         '_total' => [
      *             'estimated' => 7,
      *             'spent' => 5.5,
@@ -70,78 +62,132 @@ class HoursViewHelper extends Base
      *             'estimated' => 2,
      *             'spent' => 1,
      *             'remaining' => 1
-     *         ],
-     *         'column b' => [
-     *             'estimated' => 5,
-     *             'spent' => 4.5,
-     *             'remaining' => 0.5
      *         ]
-     *     ]
+     *     ],
+     *     'level_2' => ...
      * ]
      *
      * @param  array $tasks
-     * @param  array|NULL $columns
      * @return array
      */
-    public function getTimesFromTasks($tasks, $columns = null)
+    public function getTimesFromTasks($tasks)
     {
+        $levels = [
+            'level_1' => explode(',', $this->configModel->get('hoursview_level_1', '')),
+            'level_2' => explode(',', $this->configModel->get('hoursview_level_2', '')),
+            'level_3' => explode(',', $this->configModel->get('hoursview_level_3', '')),
+            'level_4' => explode(',', $this->configModel->get('hoursview_level_4', ''))
+        ];
+
         $all = [
+            '_has_times' => false,
             '_total' => [
                 'estimated' => 0,
                 'spent' => 0,
                 'remaining' => 0
             ]
         ];
-        $dashboard = $all;
+        $level_1 = $all;
+        $level_2 = $all;
+        $level_3 = $all;
+        $level_4 = $all;
         $col_name = 'null';
 
         foreach ($tasks as $task) {
-            if (!is_null($columns)) {
-                if (isset($columns[$task['column_id']])) {
-                    $col_name = $columns[$task['column_id']]['title'];
-                } else {
-                    continue;
-                }
-            }
 
-            if (!is_null($columns) && !isset($all[$col_name])) {
-                $all[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
-                if ($columns[$task['column_id']]['hide_in_dashboard'] != 1) {
-                    $dashboard[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
-                }
-            }
+            // get column name
+            $col_name = $task['column_name'];
+
+            // set new column key in the time calc arrays
+            $this->setTimeCalcKey($all, $col_name);
+            $this->setTimeCalcKey($level_1, $col_name);
+            $this->setTimeCalcKey($level_2, $col_name);
+            $this->setTimeCalcKey($level_3, $col_name);
+            $this->setTimeCalcKey($level_4, $col_name);
 
             // all: column times
-            if (!is_null($columns)) {
-                $all[$col_name]['estimated'] += $task['time_estimated'];
-                $all[$col_name]['spent'] += $task['time_spent'];
-                $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
-            }
+            $all[$col_name]['estimated'] += $task['time_estimated'];
+            $all[$col_name]['spent'] += $task['time_spent'];
+            $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
 
             // all: total times
             $all['_total']['estimated'] += $task['time_estimated'];
             $all['_total']['spent'] += $task['time_spent'];
             $all['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $this->modifyHasTimes($all);
 
 
-            // dashboard times
-            if (!is_null($columns) && $columns[$task['column_id']]['hide_in_dashboard'] != 1) {
-                // dashbord: column times
-                $dashboard[$col_name]['estimated'] += $task['time_estimated'];
-                $dashboard[$col_name]['spent'] += $task['time_spent'];
-                $dashboard[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
-
-                // dashboard: total times
-                $dashboard['_total']['estimated'] += $task['time_estimated'];
-                $dashboard['_total']['spent'] += $task['time_spent'];
-                $dashboard['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
-            }
+            // level times
+            $this->addTimesForLevel($level_1, 'level_1', $levels, $col_name, $task);
+            $this->addTimesForLevel($level_2, 'level_2', $levels, $col_name, $task);
+            $this->addTimesForLevel($level_3, 'level_3', $levels, $col_name, $task);
+            $this->addTimesForLevel($level_4, 'level_4', $levels, $col_name, $task);
         }
 
         return [
             'all' => $all,
-            'dashboard' => $dashboard
+            'level_1' => $level_1,
+            'level_2' => $level_2,
+            'level_3' => $level_3,
+            'level_4' => $level_4
         ];
+    }
+
+    /**
+     * Check if the given array has any time above 0
+     * like estimated, spent or remaining and if so
+     * set the _has_times to true.
+     *
+     * @param  array &$arr
+     */
+    protected function modifyHasTimes(&$arr)
+    {
+        if (
+            $arr['_total']['estimated'] > 0
+            || $arr['_total']['spent'] > 0
+            || $arr['_total']['remaining'] > 0
+        ) {
+            $arr['_has_times'] = true;
+        }
+    }
+
+    /**
+     * Check if the array key exists and add it, if not.
+     *
+     * @param array &$arr
+     * @param string $col_name
+     */
+    protected function setTimeCalcKey(&$arr, $col_name)
+    {
+        if (!isset($arr[$col_name])) {
+            $arr[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
+        }
+    }
+
+    /**
+     * Function to add the calculation for each level in the
+     * getTimesFromTasks() method.
+     *
+     * @param array &$level
+     * @param string $level_key
+     * @param array $levels
+     * @param string $col_name
+     * @param array $task
+     */
+    protected function addTimesForLevel(&$level, $level_key, $levels, $col_name, $task)
+    {
+        if (in_array(strtolower(is_null($col_name) ? '' : $col_name), $levels[$level_key])) {
+            // dashbord: column times
+            $level[$col_name]['estimated'] += $task['time_estimated'];
+            $level[$col_name]['spent'] += $task['time_spent'];
+            $level[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+
+            // level: total times
+            $level['_total']['estimated'] += $task['time_estimated'];
+            $level['_total']['spent'] += $task['time_spent'];
+            $level['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $this->modifyHasTimes($level);
+        }
     }
 
     /**
@@ -158,9 +204,8 @@ class HoursViewHelper extends Base
     public function getTimesByProjectId($projectId)
     {
         $tasks = $this->getTasksByProjectId($projectId);
-        $columns = $this->getColumnsByProjectId($projectId);
 
-        return $this->getTimesFromTasks($tasks, $columns);
+        return $this->getTimesFromTasks($tasks);
     }
 
     /**
@@ -200,10 +245,10 @@ class HoursViewHelper extends Base
      * @param  integer $projectId
      * @return array
      */
-    private function getColumnsByProjectId($projectId)
+    protected function getColumnsByProjectId($projectId)
     {
         $out = [];
-        $columns = $this->container['columnModel']->getAll($projectId);
+        $columns = $this->columnModel->getAll($projectId);
         foreach ($columns as $column) {
             $out[$column['id']] = $column;
         }
@@ -217,9 +262,13 @@ class HoursViewHelper extends Base
      * @param  integer $projectId
      * @return array
      */
-    private function getTasksByProjectId($projectId)
+    protected function getTasksByProjectId($projectId)
     {
-        return $this->container['taskFinderModel']->getAll($projectId);
+        return $this->taskFinderModel->getExtendedQuery()
+            ->eq(TaskModel::TABLE.'.project_id', $projectId)
+            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
+            ->asc(TaskModel::TABLE.'.id')
+            ->findAll();
     }
 
     /**
@@ -238,15 +287,28 @@ class HoursViewHelper extends Base
      */
     public function getTimesByUserId($userId)
     {
-        $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
+        // $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
 
-        $userTasks = $this->container['taskFinderModel']->getUserQuery($userId)->findAll();
-        foreach ($userTasks as $task) {
-            $out['estimated'] += $task['time_estimated'];
-            $out['spent'] += $task['time_spent'];
-            $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
-        }
+        // $userTasks = $this->taskFinderModel->getUserQuery($userId)->findAll();
+        // foreach ($userTasks as $task) {
+        //     $this->logger->info(json_encode($task));
+        //     $out['estimated'] += $task['time_estimated'];
+        //     $out['spent'] += $task['time_spent'];
+        //     $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+        // }
 
-        return $out;
+        // return $out;
+
+        // $tasks = $this->taskFinderModel->getUserQuery($userId)->findAll();
+        $tasks = $this->taskFinderModel->getExtendedQuery()
+            ->beginOr()
+            ->eq(TaskModel::TABLE.'.owner_id', $userId)
+            ->addCondition(TaskModel::TABLE.".id IN (SELECT task_id FROM ".SubtaskModel::TABLE." WHERE ".SubtaskModel::TABLE.".user_id='$userId')")
+            ->closeOr()
+            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
+            ->eq(ProjectModel::TABLE.'.is_active', ProjectModel::ACTIVE)
+            ->findAll();
+
+        return $this->getTimesFromTasks($tasks);
     }
 }
