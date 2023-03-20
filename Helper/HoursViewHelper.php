@@ -314,4 +314,15 @@ class HoursViewHelper extends Base
         ];
         return $levels_captions;
     }
+
+    /**
+     * Represent the given float as a proper time string.
+     *
+     * @param  float $time
+     * @return string
+     */
+    public function floatToHHMM($time)
+    {
+        return sprintf('%01d:%02d', (int) $time, fmod($time, 1) * 60);
+    }
 }

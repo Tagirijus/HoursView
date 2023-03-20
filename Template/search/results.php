@@ -11,7 +11,7 @@
                 <?= t('Estimated'); ?>:
             </span>
             <span class="thv-estimated-color">
-                <?= round($times['all']['_total']['estimated'], 2); ?>h
+                <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['estimated']); ?>h
             </span>
         </td>
 
@@ -20,7 +20,7 @@
                 <?= t('Spent'); ?>:
             </span>
             <span class="thv-spent-color">
-                <?= round($times['all']['_total']['spent'], 2); ?>h
+                <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['spent']); ?>h
             </span>
         </td>
 
@@ -29,7 +29,7 @@
                 <?= t('Remaining'); ?>:
             </span>
             <span class="thv-remaining-color">
-                <?= round($times['all']['_total']['remaining'], 2); ?>h
+                <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['remaining']); ?>h
             </span>
         </td>
     </tr>

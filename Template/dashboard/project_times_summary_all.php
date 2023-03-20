@@ -23,7 +23,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
-                    <?= round($times['level_1']['_total']['estimated'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['estimated']); ?>h
                 </span>
             </td>
 
@@ -32,7 +32,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
-                    <?= round($times['level_1']['_total']['spent'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['spent']); ?>h
                 </span>
             </td>
 
@@ -41,7 +41,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
-                    <?= round($times['level_1']['_total']['remaining'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['remaining']); ?>h
                 </span>
             </td>
         </tr>
@@ -64,7 +64,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
-                    <?= round($times['level_2']['_total']['estimated'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['estimated']); ?>h
                 </span>
             </td>
 
@@ -73,7 +73,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
-                    <?= round($times['level_2']['_total']['spent'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['spent']); ?>h
                 </span>
             </td>
 
@@ -82,7 +82,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
-                    <?= round($times['level_2']['_total']['remaining'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['remaining']); ?>h
                 </span>
             </td>
         </tr>
@@ -105,7 +105,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
-                    <?= round($times['level_3']['_total']['estimated'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['estimated']); ?>h
                 </span>
             </td>
 
@@ -114,7 +114,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
-                    <?= round($times['level_3']['_total']['spent'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['spent']); ?>h
                 </span>
             </td>
 
@@ -123,7 +123,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
-                    <?= round($times['level_3']['_total']['remaining'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['remaining']); ?>h
                 </span>
             </td>
         </tr>
@@ -146,7 +146,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
-                    <?= round($times['level_4']['_total']['estimated'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['estimated']); ?>h
                 </span>
             </td>
 
@@ -155,7 +155,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
-                    <?= round($times['level_4']['_total']['spent'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['spent']); ?>h
                 </span>
             </td>
 
@@ -164,7 +164,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
-                    <?= round($times['level_4']['_total']['remaining'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['remaining']); ?>h
                 </span>
             </td>
         </tr>
@@ -185,7 +185,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
-                    <?= round($times['all']['_total']['estimated'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['estimated']); ?>h
                 </span>
             </td>
 
@@ -194,7 +194,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
-                    <?= round($times['all']['_total']['spent'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['spent']); ?>h
                 </span>
             </td>
 
@@ -203,7 +203,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
-                    <?= round($times['all']['_total']['remaining'], 2); ?>h
+                    <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['remaining']); ?>h
                 </span>
             </td>
         </tr>
