@@ -5,8 +5,8 @@ namespace Kanboard\Plugin\HoursView\Helper;
 use Kanboard\Core\Base;
 use Kanboard\Model\TaskModel;
 use Kanboard\Model\ProjectModel;
-use Kanboard\Model\ColumnModel;
 use Kanboard\Model\SubtaskModel;
+
 
 class HoursViewHelper extends Base
 {
@@ -264,11 +264,15 @@ class HoursViewHelper extends Base
      */
     protected function getTasksByProjectId($projectId)
     {
-        return $this->taskFinderModel->getExtendedQuery()
-            ->eq(TaskModel::TABLE.'.project_id', $projectId)
-            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
-            ->asc(TaskModel::TABLE.'.id')
-            ->findAll();
+        $project = $this->projectModel->getById($projectId);
+        $search = $this->helper->projectHeader->getSearchQuery($project);
+
+        $query = $this->taskFinderModel->getExtendedQuery()
+            ->eq(TaskModel::TABLE.'.project_id', $projectId);
+
+        $builder = $this->taskLexer;
+        $builder->withQuery($query);
+        return $builder->build($search)->toArray();
     }
 
     /**
