@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.8
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Board HoursView now uses search filter as well
+
+
 ## v1.7
 
 ### What's Changed
