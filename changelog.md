@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.9
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Time display designs optimized
+
+
 ## v1.8
 
 ### What's Changed
