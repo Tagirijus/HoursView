@@ -1,7 +1,7 @@
 /* COLORS */
 
 .thv-weak-color {
-	color: rgb(45, 40, 55);
+	color: rgb(100, 100, 120);
 }
 
 .thv-title-color {
@@ -55,6 +55,9 @@
 }
 .thv-box-item div {
 	width: 25%;
+}
+.thv-box-item:last-child {
+	margin-bottom: 1em;
 }
 .thv-box-item-full {
 	width: 100% !important;
