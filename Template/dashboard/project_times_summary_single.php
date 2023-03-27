@@ -1,6 +1,6 @@
 <?php $times = $tagiTimes($project['id']); ?>
 
-<div class="thv-dashboard-summary-single">
+<div class="thv-board-column">
     &ndash;
 
     <span class="thv-estimated-color">
