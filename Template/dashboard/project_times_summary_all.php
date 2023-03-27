@@ -5,7 +5,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 ?>
 
-<div class="thv-box-wrapper">
+<div class="thv-box-wrapper thv-font-small">
 
 
     <!-- LEVEL 1 -->
@@ -175,7 +175,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
     <!-- ALL -->
     <?php if ($times['all']['_has_times']): ?>
 
-        <div class="thv-box-item thv-box-item-full thv-box-all">
+        <div class="thv-box-item thv-box-all">
 
             <div class="thv-weak-color">
                 All:

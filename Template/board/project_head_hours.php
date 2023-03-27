@@ -5,171 +5,169 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 ?>
 
-<div class="thv-table-board-wrapper">
-
-<table class="thv-table-board">
+<div class="thv-box-wrapper-board">
 
 
     <!-- LEVEL 1 -->
     <?php if ($times['level_1']['_has_times'] || $captions['level_1'] != 'Level 1'): ?>
 
-        <tr>
-            <td>
-                <span class="thv-weak-color">
-                    <?= $captions['level_1'] ?>:
-                </span>
-            </td>
+        <div class="thv-box-item">
 
-            <td>
+            <div class="thv-weak-color">
+                <?= $captions['level_1'] ?>:
+            </div>
+
+            <div>
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['estimated']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['spent']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_1']['_total']['remaining']); ?>h
                 </span>
-            </td>
-        </tr>
+            </div>
+
+        </div>
 
     <?php endif ?>
 
 
     <!-- LEVEL 2 -->
-    <?php if ($times['level_2']['_has_times'] || $captions['level_2'] != 'Level 2'): ?>
+    <?php if ($times['level_2']['_has_times'] || $captions['level_2'] != 'Level 1'): ?>
 
-        <tr>
-            <td>
-                <span class="thv-weak-color">
-                    <?= $captions['level_2'] ?>:
-                </span>
-            </td>
+        <div class="thv-box-item">
 
-            <td>
+            <div class="thv-weak-color">
+                <?= $captions['level_2'] ?>:
+            </div>
+
+            <div>
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['estimated']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['spent']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_2']['_total']['remaining']); ?>h
                 </span>
-            </td>
-        </tr>
+            </div>
+
+        </div>
 
     <?php endif ?>
 
 
     <!-- LEVEL 3 -->
-    <?php if ($times['level_3']['_has_times'] || $captions['level_3'] != 'Level 3'): ?>
+    <?php if ($times['level_3']['_has_times'] || $captions['level_3'] != 'Level 1'): ?>
 
-        <tr>
-            <td>
-                <span class="thv-weak-color">
-                    <?= $captions['level_3'] ?>:
-                </span>
-            </td>
+        <div class="thv-box-item">
 
-            <td>
+            <div class="thv-weak-color">
+                <?= $captions['level_3'] ?>:
+            </div>
+
+            <div>
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['estimated']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['spent']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_3']['_total']['remaining']); ?>h
                 </span>
-            </td>
-        </tr>
+            </div>
+
+        </div>
 
     <?php endif ?>
 
 
     <!-- LEVEL 4 -->
-    <?php if ($times['level_4']['_has_times'] || $captions['level_4'] != 'Level 4'): ?>
+    <?php if ($times['level_4']['_has_times'] || $captions['level_4'] != 'Level 1'): ?>
 
-        <tr>
-            <td>
-                <span class="thv-weak-color">
-                    <?= $captions['level_4'] ?>:
-                </span>
-            </td>
+        <div class="thv-box-item">
 
-            <td>
+            <div class="thv-weak-color">
+                <?= $captions['level_4'] ?>:
+            </div>
+
+            <div>
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['estimated']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['spent']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['level_4']['_total']['remaining']); ?>h
                 </span>
-            </td>
-        </tr>
+            </div>
+
+        </div>
 
     <?php endif ?>
 
@@ -177,41 +175,42 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
     <!-- ALL -->
     <?php if ($times['all']['_has_times']): ?>
 
-        <tr style="opacity: .7; font-size: .7em;">
-            <td>
-                <span class="thv-weak-color">All:</span>
-            </td>
+        <div class="thv-box-item thv-box-item-full thv-box-all">
 
-            <td>
+            <div class="thv-weak-color">
+                All:
+            </div>
+
+            <div>
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
                 <span class="thv-estimated-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['estimated']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
                 <span class="thv-spent-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['spent']); ?>h
                 </span>
-            </td>
+            </div>
 
-            <td>
+            <div>
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
                 <span class="thv-remaining-color">
                     <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['remaining']); ?>h
                 </span>
-            </td>
-        </tr>
+            </div>
+
+        </div>
 
     <?php endif ?>
 
 
-</table>
 </div>
