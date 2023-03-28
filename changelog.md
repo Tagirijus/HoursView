@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v1.10
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Added responsive design (RWD)
+- Time display designs further optimized
+
+
 ## v1.9
 
 ### What's Changed
