@@ -53,6 +53,12 @@
 	background-color: rgba(100, 100, 125, 0.08);
 	padding: .25em .5em;
 }
+@media only screen and (max-width: 1000px) {
+	/* For mobile phones: */
+	.thv-box-wrapper-board, .thv-box-item {
+	width: 100%;
+  }
+}
 .thv-box-item div {
 	width: 25%;
 }
