@@ -40,18 +40,22 @@
 }
 .thv-box-wrapper-board {
 	display: flex;
-	width: 80%;
+	width: 85%;
 	margin: auto;
 	flex-wrap: wrap;
 	justify-content: center;
 }
 .thv-box-item {
 	display: flex;
-	width: 48%;
+	width: 47%;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	background-color: rgba(100, 100, 125, 0.08);
-	padding: .25em .5em;
+	padding: .5em .75em;
+	margin: .25em;
+}
+.thv-box-item:hover {
+	filter: brightness(1.2);
 }
 @media only screen and (max-width: 1000px) {
 	/* For mobile phones: */
