@@ -25,7 +25,7 @@
 
     <?php if (! empty($task['date_started'])): ?>
         <span title="<?= t('Start date') ?>" class="task-date">
-            <i class="fa fa-clock-o" role="img" aria-label="<?= t('Start date') ?>"></i>
+            <i class="fa fa-play" role="img" aria-label="<?= t('Start date') ?>"></i>
             <?= $this->dt->date($task['date_started']) ?>
         </span>
     <?php endif ?>
@@ -39,7 +39,7 @@
             <?php endif ?>
             ">
             <i class="fa fa-calendar" role="img" aria-label="<?= t('Due date') ?>"></i>
-            <?= $this->dt->datetime($task['date_due']) ?>
+            <?= $this->dt->date($task['date_due']) ?>
         </span>
     <?php endif ?>
 
