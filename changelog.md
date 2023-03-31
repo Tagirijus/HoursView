@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.11
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Replaced some templates to get better readable time formatting in certain spots of the app
+
+
 ## v1.10
 
 ### What's Changed
