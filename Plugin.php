@@ -20,6 +20,7 @@ class Plugin extends Base
         $this->template->setTemplateOverride('search/results', 'HoursView:search/results');
         $this->template->setTemplateOverride('task/details', 'HoursView:task/details');
         $this->template->setTemplateOverride('board/task_footer', 'HoursView:board/task_footer');
+        $this->template->setTemplateOverride('task_list/task_icons', 'HoursView:task_list/task_icons');
 
         // Views - Template Hook
         $this->template->hook->attach(
