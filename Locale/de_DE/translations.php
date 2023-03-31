@@ -12,5 +12,7 @@ return array(
     'Levels captions' => 'Level Bezeichnungen',
     'The captions / titles for the columns for the frontend.' => 'Die Bezeichnungen / Titel für die Spalten für die Oberfläche.',
     'caption' => 'Bezeichnung',
-    'Time remaining:' => 'Übrige Zeit:'
+    'Time remaining:' => 'Übrige Zeit:',
+    'estimated' => 'erwartet',
+    'spent' => 'aufgewendet'
 );
