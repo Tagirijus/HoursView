@@ -107,7 +107,7 @@
                         <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?></span>
                     </li>
                     <?php endif ?>
-                    <?php if ($task['time_spent']): ?>
+                    <?php if ($task['time_estimated']): ?>
                     <li>
                         <strong><?= t('Time remaining:') ?></strong>
                         <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM(round($task['time_estimated'] - $task['time_spent'], 2))) ?></span>
