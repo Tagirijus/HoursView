@@ -22,6 +22,7 @@ class Plugin extends Base
         $this->template->setTemplateOverride('board/task_footer', 'HoursView:board/task_footer');
         $this->template->setTemplateOverride('task_list/task_icons', 'HoursView:task_list/task_icons');
         $this->template->setTemplateOverride('subtask/timer', 'HoursView:subtask/timer');
+        $this->template->setTemplateOverride('task_internal_link/table', 'HoursView:task_internal_link/table');
 
         // Views - Template Hook
         $this->template->hook->attach(
