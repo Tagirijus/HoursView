@@ -327,6 +327,11 @@ class HoursViewHelper extends Base
      */
     public function floatToHHMM($time)
     {
-        return sprintf('%01d:%02d', (int) $time, fmod($time, 1) * 60);
+        $hours = (int) $time;
+        $minutes = fmod($time, 1) * 60;
+        if ($minutes < 0) {
+            $minutes = $minutes * -1;
+        }
+        return sprintf('%01d:%02d', $hours, $minutes);
     }
 }
