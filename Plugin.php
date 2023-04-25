@@ -82,7 +82,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.11.2';
+        return '1.11.3';
     }
 
     public function getCompatibleVersion()
