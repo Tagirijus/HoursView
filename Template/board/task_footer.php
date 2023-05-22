@@ -1,3 +1,10 @@
+<?php
+
+$progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
+
+?>
+
+
 <?php if (! empty($task['category_id'])): ?>
 <div class="task-board-category-container task-board-category-container-color">
     <span class="task-board-category category-<?= $this->text->e($task['category_name']) ?> <?= $task['category_color_id'] ? "color-{$task['category_color_id']}" : '' ?>">
@@ -136,16 +143,16 @@
 
         <!-- Task Progress Bar -->
 
-        <?php if ($task['time_estimated'] > 0): ?>
+        <?php if ($task['time_estimated'] > 0 && $progressbar_config['enabled'] == 1): ?>
 
             <?php
                 $percent = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
                 $percent_txt = $percent;
-                $percent_opacity = 1;
+                $percent_opacity = $progressbar_config['opacity'];
                 if ($percent > 100) {
                     $percent = 100;
                 } elseif ($percent == 0) {
-                    $percent_opacity = 0.15;
+                    $percent_opacity = $progressbar_config['0_opacity'];
                 }
             ?>
 

@@ -24,7 +24,7 @@ class HoursViewController extends \Kanboard\Controller\PluginController
             'level_2_caption' => $this->configModel->get('hoursview_level_2_caption', ''),
             'level_3_caption' => $this->configModel->get('hoursview_level_3_caption', ''),
             'level_4_caption' => $this->configModel->get('hoursview_level_4_caption', ''),
-            'progressbar_enable' => $this->configModel->get('hoursview_progressbar_enable', 1),
+            'progressbar_enabled' => $this->configModel->get('hoursview_progressbar_enabled', 1),
             'progressbar_opacity' => $this->configModel->get('hoursview_progressbar_opacity', 1),
             'progressbar_0_opacity' => $this->configModel->get('hoursview_progressbar_0_opacity', 0.15)
         ]));
@@ -46,7 +46,7 @@ class HoursViewController extends \Kanboard\Controller\PluginController
             'hoursview_level_2_caption' => $form['level_2_caption'],
             'hoursview_level_3_caption' => $form['level_3_caption'],
             'hoursview_level_4_caption' => $form['level_4_caption'],
-            'hoursview_progressbar_enable' => is_null($form['progressbar_enable']) ? 0 : 1,
+            'hoursview_progressbar_enabled' => isset($form['progressbar_enabled']) ? 1 : 0,
             'hoursview_progressbar_opacity' => $form['progressbar_opacity'],
             'hoursview_progressbar_0_opacity' => $form['progressbar_0_opacity']
         ];

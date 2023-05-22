@@ -341,4 +341,19 @@ class HoursViewHelper extends Base
             return sprintf('%01d:%02d', $hours, $minutes);
         }
     }
+
+    /**
+     * Get configuration for progress bar.
+     *
+     * @return array
+     */
+    public function getProgressBarConfig()
+    {
+        $progressbar_config = [
+            'enabled' => $this->configModel->get('hoursview_progressbar_enabled', 1),
+            '0_opacity' => $this->configModel->get('hoursview_progressbar_0_opacity', 0.15),
+            'opacity' => $this->configModel->get('hoursview_progressbar_opacity', 1)
+        ];
+        return $progressbar_config;
+    }
 }

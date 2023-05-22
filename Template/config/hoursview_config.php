@@ -117,8 +117,8 @@
     <div class="task-form-container">
 
         <div class="task-form-main-column">
-            <?= $this->form->label(t('Progress bar on board cards'), 'progressbar_enable') ?>
-            <?= $this->form->checkbox('progressbar_enable', t('enabled'), $progressbar_enable == 1 ? true : false, $progressbar_enable, '', [
+            <?= $this->form->label(t('Progress bar on board cards'), 'progressbar_enabled') ?>
+            <?= $this->form->checkbox('progressbar_enabled', t('enabled'), 1, $progressbar_enabled, '', [
                 'autofocus',
                 'tabindex="5"'
             ]) ?>
