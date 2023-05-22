@@ -133,7 +133,18 @@
 
         <?= $this->task->renderPriority($task['priority']) ?>
 
+
+        <!-- Task Progress Bar -->
+
+        <div class="container-task-progress-bar">
+            <div class="task-progress-bar" style="width:<?= round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0).'%'; ?>;">
+                <strong><?= $this->app->tooltipLink(round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0).'%', $this->url->href('BoardTooltipController', 'subtasks', array('task_id' => $task['id'], 'project_id' => $task['project_id']))) ?></strong>
+            </div>
+        </div>
+
+
         <?= $this->hook->render('template:board:task:icons', array('task' => $task)) ?>
+
     </div>
 </div>
 

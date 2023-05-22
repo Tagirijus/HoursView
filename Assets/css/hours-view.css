@@ -80,3 +80,26 @@
 .thv-font-small {
 	font-size: .75em;
 }
+
+/* Task Progress Bar - copied from TaskProgressBar plugin by Valentino Pesce */
+.container-task-progress-bar
+{
+	background-color: #8282822e;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.task-progress-bar
+{
+	height: 20px;
+	padding-right: 3px;
+	background: #f1f1f1;
+	border-radius: 5px;
+}
+
+.task-progress-bar span
+{
+	color: #333 !important;
+	opacity: 1 !important;
+}
