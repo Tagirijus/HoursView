@@ -14,5 +14,11 @@ return array(
     'caption' => 'Bezeichnung',
     'Time remaining:' => 'Übrige Zeit:',
     'estimated' => 'erwartet',
-    'spent' => 'aufgewendet'
+    'spent' => 'aufgewendet',
+    'Progress bar' => 'Fortschrittsbalken',
+    'Configure the progress bar on the task cards.' => 'Kofigurieren SIe den Fortschrittsbalken auf den Task-Karten.',
+    'Progress bar on board cards' => 'Fortschrittsbalken auf Board-Karten',
+    'enabled' => 'aktiviert',
+    'Progress bar opacity when not started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task noch nicht gestartet',
+    'Progress bar opacity when started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task gestartet'
 );

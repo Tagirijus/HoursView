@@ -101,6 +101,47 @@
 
     </div>
 
+    <br>
+    <br>
+
+
+    <!-- PERCENTAGE -->
+
+    <p>
+        <h3><?= t('Progress bar') ?></h3>
+    </p>
+
+    <p>
+        <?= t('Configure the progress bar on the task cards.') ?>
+    </p>
+    <div class="task-form-container">
+
+        <div class="task-form-main-column">
+            <?= $this->form->label(t('Progress bar on board cards'), 'progressbar_enable') ?>
+            <?= $this->form->checkbox('progressbar_enable', t('enabled'), $progressbar_enable == 1 ? true : false, $progressbar_enable, '', [
+                'autofocus',
+                'tabindex="5"'
+            ]) ?>
+        </div>
+
+        <div class="task-form-main-column">
+            <?= $this->form->label(t('Progress bar opacity when not started'), 'progressbar_0_opacity') ?>
+            <?= $this->form->text('progressbar_0_opacity', ['progressbar_0_opacity' => $progressbar_0_opacity], [], [
+                'autofocus',
+                'tabindex="6"'
+            ]) ?>
+        </div>
+
+        <div class="task-form-main-column">
+            <?= $this->form->label(t('Progress bar opacity when started'), 'progressbar_opacity') ?>
+            <?= $this->form->text('progressbar_opacity', ['progressbar_opacity' => $progressbar_opacity], [], [
+                'autofocus',
+                'tabindex="7"'
+            ]) ?>
+        </div>
+
+    </div>
+
 
 
     <div class="task-form-bottom">
