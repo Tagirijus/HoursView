@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.12
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Added the _TaskProgressBar_ feature, yet calculated from the time estimated and time spent data of a task, if no subtasks exist.
+
+
 ## v1.11
 
 ### What's Changed
