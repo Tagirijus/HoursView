@@ -136,12 +136,23 @@
 
         <!-- Task Progress Bar -->
 
-        <div class="container-task-progress-bar">
-            <div class="task-progress-bar" style="width:<?= round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0).'%'; ?>;">
-                <strong><?= $this->app->tooltipLink(round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0).'%', $this->url->href('BoardTooltipController', 'subtasks', array('task_id' => $task['id'], 'project_id' => $task['project_id']))) ?></strong>
-            </div>
-        </div>
+        <?php if ($task['time_estimated'] > 0): ?>
 
+            <?php
+                $percent = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+                $percent_txt = $percent;
+                if ($percent > 100) {
+                    $percent = 100;
+                }
+            ?>
+
+            <div class="container-task-progress-bar">
+                <div class="task-progress-bar" style="width:<?= $percent . '%'; ?>;">
+                    <?= $percent_txt . '%' ?>
+                </div>
+            </div>
+
+        <?php endif ?>
 
         <?= $this->hook->render('template:board:task:icons', array('task' => $task)) ?>
 

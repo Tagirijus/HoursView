@@ -81,10 +81,10 @@
 	font-size: .75em;
 }
 
-/* Task Progress Bar - copied from TaskProgressBar plugin by Valentino Pesce */
+/* Task Progress Bar - based on TaskProgressBar plugin by Valentino Pesce */
 .container-task-progress-bar
 {
-	background-color: #8282822e;
+	background-color: rgba(130, 130, 130, 0.5);
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-radius: 5px;
@@ -94,12 +94,8 @@
 {
 	height: 20px;
 	padding-right: 3px;
-	background: #f1f1f1;
+	background-color: rgba(130, 130, 200, 0.75);
 	border-radius: 5px;
-}
-
-.task-progress-bar span
-{
-	color: #333 !important;
-	opacity: 1 !important;
+	font-weight: bold;
+	white-space: nowrap;
 }
