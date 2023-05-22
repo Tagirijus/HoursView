@@ -141,12 +141,15 @@
             <?php
                 $percent = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
                 $percent_txt = $percent;
+                $percent_opacity = 1;
                 if ($percent > 100) {
                     $percent = 100;
+                } elseif ($percent == 0) {
+                    $percent_opacity = 0.15;
                 }
             ?>
 
-            <div class="container-task-progress-bar">
+            <div class="container-task-progress-bar" style="opacity: <?= $percent_opacity; ?>;">
                 <div class="task-progress-bar" style="width:<?= $percent . '%'; ?>;">
                     <?= $percent_txt . '%' ?>
                 </div>
