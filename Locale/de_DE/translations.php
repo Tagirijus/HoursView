@@ -21,5 +21,7 @@ return array(
     'Progress bar on board cards' => 'Fortschrittsbalken auf Board-Karten',
     'enabled' => 'aktiviert',
     'Progress bar opacity when not started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task noch nicht gestartet',
-    'Progress bar opacity when started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task gestartet'
+    'Progress bar opacity when started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task gestartet',
+    'Leave empty to hide' => 'Leer lassen zum Verstecken',
+    'If empty, time will always be 0' => 'Wenn leer, wird Zeit immer 0 sein',
 );

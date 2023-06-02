@@ -22,7 +22,8 @@
             <?= $this->form->label('Level 1 ' . t('Columns'), 'level_1_columns') ?>
             <?= $this->form->text('level_1_columns', ['level_1_columns' => $level_1_columns], [], [
                 'autofocus',
-                'tabindex="1"'
+                'tabindex="1"',
+                'placeholder="' . t('If empty, time will always be 0') . '"'
             ]) ?>
         </div>
 
@@ -30,7 +31,8 @@
             <?= $this->form->label('Level 2 ' . t('Columns'), 'level_2_columns') ?>
             <?= $this->form->text('level_2_columns', ['level_2_columns' => $level_2_columns], [], [
                 'autofocus',
-                'tabindex="2"'
+                'tabindex="2"',
+                'placeholder="' . t('If empty, time will always be 0') . '"'
             ]) ?>
         </div>
 
@@ -38,7 +40,8 @@
             <?= $this->form->label('Level 3 ' . t('Columns'), 'level_3_columns') ?>
             <?= $this->form->text('level_3_columns', ['level_3_columns' => $level_3_columns], [], [
                 'autofocus',
-                'tabindex="3"'
+                'tabindex="3"',
+                'placeholder="' . t('If empty, time will always be 0') . '"'
             ]) ?>
         </div>
 
@@ -46,7 +49,8 @@
             <?= $this->form->label('Level 4 ' . t('Columns'), 'level_4_columns') ?>
             <?= $this->form->text('level_4_columns', ['level_4_columns' => $level_4_columns], [], [
                 'autofocus',
-                'tabindex="4"'
+                'tabindex="4"',
+                'placeholder="' . t('If empty, time will always be 0') . '"'
             ]) ?>
         </div>
 
@@ -71,7 +75,8 @@
             <?= $this->form->label('Level 1 ' . t('caption'), 'level_1_caption') ?>
             <?= $this->form->text('level_1_caption', ['level_1_caption' => $level_1_caption], [], [
                 'autofocus',
-                'tabindex="1"'
+                'tabindex="1"',
+                'placeholder="' . t('Leave empty to hide') . '"'
             ]) ?>
         </div>
 
@@ -79,7 +84,8 @@
             <?= $this->form->label('Level 2 ' . t('caption'), 'level_2_caption') ?>
             <?= $this->form->text('level_2_caption', ['level_2_caption' => $level_2_caption], [], [
                 'autofocus',
-                'tabindex="2"'
+                'tabindex="2"',
+                'placeholder="' . t('Leave empty to hide') . '"'
             ]) ?>
         </div>
 
@@ -87,7 +93,8 @@
             <?= $this->form->label('Level 3 ' . t('caption'), 'level_3_caption') ?>
             <?= $this->form->text('level_3_caption', ['level_3_caption' => $level_3_caption], [], [
                 'autofocus',
-                'tabindex="3"'
+                'tabindex="3"',
+                'placeholder="' . t('Leave empty to hide') . '"'
             ]) ?>
         </div>
 
@@ -95,7 +102,8 @@
             <?= $this->form->label('Level 4 ' . t('caption'), 'level_4_caption') ?>
             <?= $this->form->text('level_4_caption', ['level_4_caption' => $level_4_caption], [], [
                 'autofocus',
-                'tabindex="4"'
+                'tabindex="4"',
+                'placeholder="' . t('Leave empty to hide') . '"'
             ]) ?>
         </div>
 
@@ -103,7 +111,8 @@
             <?= $this->form->label('All ' . t('caption'), 'all_caption') ?>
             <?= $this->form->text('all_caption', ['all_caption' => $all_caption], [], [
                 'autofocus',
-                'tabindex="5"'
+                'tabindex="5"',
+                'placeholder="' . t('Leave empty to hide') . '"'
             ]) ?>
         </div>
 
