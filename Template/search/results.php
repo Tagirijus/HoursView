@@ -21,6 +21,7 @@
             </span>
             <span class="thv-spent-color">
                 <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['spent']); ?>h
+                <i class="thv-font-small">(<?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['spent'] - $times['all']['_total']['overtime']); ?>h + <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['overtime']); ?>h)</i>
             </span>
         </td>
 
