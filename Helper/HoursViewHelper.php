@@ -81,8 +81,9 @@ class HoursViewHelper extends Base
 
         foreach ($tasks as $task) {
 
-            // get column name
+            // get column name and swimlane
             $col_name = $task['column_name'];
+            $swim_name = $task['swimlane_name'];
 
             // set new column key in the time calc arrays
             $this->setTimeCalcKey($all, $col_name);
@@ -106,10 +107,10 @@ class HoursViewHelper extends Base
 
 
             // level times
-            $this->addTimesForLevel($level_1, 'level_1', $levels_columns, $col_name, $task);
-            $this->addTimesForLevel($level_2, 'level_2', $levels_columns, $col_name, $task);
-            $this->addTimesForLevel($level_3, 'level_3', $levels_columns, $col_name, $task);
-            $this->addTimesForLevel($level_4, 'level_4', $levels_columns, $col_name, $task);
+            $this->addTimesForLevel($level_1, 'level_1', $levels_columns, $col_name, $swim_name, $task);
+            $this->addTimesForLevel($level_2, 'level_2', $levels_columns, $col_name, $swim_name, $task);
+            $this->addTimesForLevel($level_3, 'level_3', $levels_columns, $col_name, $swim_name, $task);
+            $this->addTimesForLevel($level_4, 'level_4', $levels_columns, $col_name, $swim_name, $task);
         }
 
         return [
@@ -160,11 +161,41 @@ class HoursViewHelper extends Base
      * @param string $level_key
      * @param array $levels
      * @param string $col_name
+     * @param string $swim_name
      * @param array $task
      */
-    protected function addTimesForLevel(&$level, $level_key, $levels, $col_name, $task)
+    protected function addTimesForLevel(&$level, $level_key, $levels, $col_name, $swim_name, $task)
     {
-        if (in_array(strtolower(is_null($col_name) ? '' : $col_name), $levels[$level_key])) {
+        // check if the actual column name and swimlane name
+        // are wanted for this level
+        $exists = false;
+        if (array_key_exists($level_key, $levels)) {
+            $config = $levels[$level_key];
+            foreach ($config as $col_swim) {
+                //            1     2     3
+                preg_match('/(.*)\[(.*)\](.*)/', $col_swim, $re);
+
+                // swimlane in bracktes given
+                if ($re) {
+                    // column check
+                    if (trim($re[1]) == $col_name || trim($re[3]) == $col_name) {
+                        // and swimlane check
+                        if (trim($re[2]) == $swim_name) {
+                            $exists = true;
+                        }
+                    }
+
+                // no swimlane in brackets given
+                } else {
+                    // column check
+                    if (trim($col_swim) == $col_name) {
+                        $exists = true;
+                    }
+                }
+            }
+        }
+
+        if ($exists) {
             // dashbord: column times
             $level[$col_name]['estimated'] += $task['time_estimated'];
             $level[$col_name]['spent'] += $task['time_spent'];

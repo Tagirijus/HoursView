@@ -14,7 +14,7 @@
     </p>
 
     <p>
-        <?= t('Each level can have comma seperated column names. This columns will be used for this levels time calculation. Use lowercase for the column names.') ?>
+        <?= t('Each level can have comma seperated column names. This columns will be used for this levels time calculation. You can write swimlane in []-brackets to match these as well') ?>
     </p>
     <div class="task-form-container">
 
