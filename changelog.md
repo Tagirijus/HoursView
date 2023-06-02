@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.14
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- User can now also define the swimlane for the time calculation in the config.
+
+
 ## v1.13
 
 ### What's Changed
