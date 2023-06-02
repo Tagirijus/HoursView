@@ -9,7 +9,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 1 -->
-    <?php if ($times['level_1']['_has_times'] || $captions['level_1'] != 'Level 1'): ?>
+    <?php if ($times['level_1']['_has_times'] && $captions['level_1'] != ''): ?>
 
         <div class="thv-box-item">
 
@@ -50,7 +50,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 2 -->
-    <?php if ($times['level_2']['_has_times'] || $captions['level_2'] != 'Level 1'): ?>
+    <?php if ($times['level_2']['_has_times'] && $captions['level_2'] != ''): ?>
 
         <div class="thv-box-item">
 
@@ -91,7 +91,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 3 -->
-    <?php if ($times['level_3']['_has_times'] || $captions['level_3'] != 'Level 1'): ?>
+    <?php if ($times['level_3']['_has_times'] && $captions['level_3'] != ''): ?>
 
         <div class="thv-box-item">
 
@@ -132,7 +132,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- LEVEL 4 -->
-    <?php if ($times['level_4']['_has_times'] || $captions['level_4'] != 'Level 1'): ?>
+    <?php if ($times['level_4']['_has_times'] && $captions['level_4'] != ''): ?>
 
         <div class="thv-box-item">
 
@@ -173,7 +173,7 @@ $captions = $this->hoursViewHelper->getLevelCaptions();
 
 
     <!-- ALL -->
-    <?php if ($times['all']['_has_times']): ?>
+    <?php if ($times['all']['_has_times'] && $captions['all'] != ''): ?>
 
         <div class="thv-box-item thv-box-all">
 
