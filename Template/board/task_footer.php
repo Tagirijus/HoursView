@@ -61,8 +61,9 @@ $progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
         <?php endif ?>
 
         <?php if (! empty($task['time_estimated']) || ! empty($task['time_spent'])): ?>
-            <span class="task-time-estimated" title="<?= t('Time spent and estimated') ?>">
-                <span class="ui-helper-hidden-accessible"><?= t('Time spent and estimated') ?> </span><?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?>/<?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_estimated'])) ?>h
+            <span class="task-time-estimated" title="<?= t('Time remaining, spent and estimated') ?>">
+                <span class="ui-helper-hidden-accessible"><?= t('Time remaining, spent and estimated') ?> </span><?= $this->text->e($this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?>h
+                    <i>(<?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?>h / <?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_estimated'])) ?>h)</i>
             </span>
         <?php endif ?>
 

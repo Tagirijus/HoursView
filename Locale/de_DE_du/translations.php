@@ -24,4 +24,5 @@ return array(
     'Progress bar opacity when started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task gestartet',
     'Leave empty to hide' => 'Leer lassen zum Verstecken',
     'If empty, time will always be 0' => 'Wenn leer, wird Zeit immer 0 sein',
+    'Time remaining, spent and estimated' => 'Übrige, aufgewendete und erwartete Zeit',
 );
