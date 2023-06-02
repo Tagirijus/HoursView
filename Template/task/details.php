@@ -44,6 +44,25 @@
                         </small>
                     </li>
                     <?php endif ?>
+                    <li>
+                        <strong><?= t('Assignee:') ?></strong>
+                        <span>
+                        <?php if ($task['assignee_username']): ?>
+                            <?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?>
+                        <?php else: ?>
+                            <?= t('not assigned') ?>
+                        <?php endif ?>
+                        </span>
+                        <?php if ($editable && $task['owner_id'] != $this->user->getId()): ?>
+                            - <span><?= $this->url->link(t('Assign to me'), 'TaskModificationController', 'assignToMe', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?></span>
+                        <?php endif ?>
+                    </li>
+                    <?php if ($task['creator_username']): ?>
+                        <li>
+                            <strong><?= t('Creator:') ?></strong>
+                            <span><?= $this->text->e($task['creator_name'] ?: $task['creator_username']) ?></span>
+                        </li>
+                    <?php endif ?>
 
                     <?= $this->hook->render('template:task:details:first-column', array('task' => $task)) ?>
                 </ul>
@@ -76,25 +95,6 @@
             </div>
             <div class="task-summary-column">
                 <ul class="no-bullet">
-                    <li>
-                        <strong><?= t('Assignee:') ?></strong>
-                        <span>
-                        <?php if ($task['assignee_username']): ?>
-                            <?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?>
-                        <?php else: ?>
-                            <?= t('not assigned') ?>
-                        <?php endif ?>
-                        </span>
-                        <?php if ($editable && $task['owner_id'] != $this->user->getId()): ?>
-                            - <span><?= $this->url->link(t('Assign to me'), 'TaskModificationController', 'assignToMe', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?></span>
-                        <?php endif ?>
-                    </li>
-                    <?php if ($task['creator_username']): ?>
-                        <li>
-                            <strong><?= t('Creator:') ?></strong>
-                            <span><?= $this->text->e($task['creator_name'] ?: $task['creator_username']) ?></span>
-                        </li>
-                    <?php endif ?>
                     <?php if ($task['time_estimated']): ?>
                     <li>
                         <strong><?= t('Time estimated:') ?></strong>
@@ -107,10 +107,14 @@
                         <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?></span>
                     </li>
                     <?php endif ?>
-                    <?php if ($task['time_estimated']): ?>
+                    <?php if ($task['time_estimated'] && $task['time_spent']): ?>
                     <li>
                         <strong><?= t('Time remaining:') ?></strong>
-                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM(round($task['time_estimated'] - $task['time_spent'], 2))) ?></span>
+                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?></span>
+                    </li>
+                    <li>
+                        <strong><?= t('Overtime') . ':' ?></strong>
+                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getOvertimeForTask($task))) ?></span>
                     </li>
                     <?php endif ?>
 
