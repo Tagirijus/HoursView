@@ -99,6 +99,14 @@
             ]) ?>
         </div>
 
+        <div class="task-form-main-column">
+            <?= $this->form->label('All ' . t('caption'), 'all_caption') ?>
+            <?= $this->form->text('all_caption', ['all_caption' => $all_caption], [], [
+                'autofocus',
+                'tabindex="5"'
+            ]) ?>
+        </div>
+
     </div>
 
     <br>
@@ -120,7 +128,7 @@
             <?= $this->form->label(t('Progress bar on board cards'), 'progressbar_enabled') ?>
             <?= $this->form->checkbox('progressbar_enabled', t('enabled'), 1, $progressbar_enabled, '', [
                 'autofocus',
-                'tabindex="5"'
+                'tabindex="6"'
             ]) ?>
         </div>
 
@@ -128,7 +136,7 @@
             <?= $this->form->label(t('Progress bar opacity when not started'), 'progressbar_0_opacity') ?>
             <?= $this->form->text('progressbar_0_opacity', ['progressbar_0_opacity' => $progressbar_0_opacity], [], [
                 'autofocus',
-                'tabindex="6"'
+                'tabindex="7"'
             ]) ?>
         </div>
 
@@ -136,7 +144,7 @@
             <?= $this->form->label(t('Progress bar opacity when started'), 'progressbar_opacity') ?>
             <?= $this->form->text('progressbar_opacity', ['progressbar_opacity' => $progressbar_opacity], [], [
                 'autofocus',
-                'tabindex="7"'
+                'tabindex="8"'
             ]) ?>
         </div>
 

@@ -311,10 +311,11 @@ class HoursViewHelper extends Base
     public function getLevelCaptions()
     {
         $levels_captions = [
-            'level_1' => $this->configModel->get('hoursview_level_1_caption', 'Level 1'),
-            'level_2' => $this->configModel->get('hoursview_level_2_caption', 'Level 2'),
-            'level_3' => $this->configModel->get('hoursview_level_3_caption', 'Level 3'),
-            'level_4' => $this->configModel->get('hoursview_level_4_caption', 'Level 4')
+            'level_1' => $this->configModel->get('hoursview_level_1_caption', ''),
+            'level_2' => $this->configModel->get('hoursview_level_2_caption', ''),
+            'level_3' => $this->configModel->get('hoursview_level_3_caption', ''),
+            'level_4' => $this->configModel->get('hoursview_level_4_caption', ''),
+            'all' => $this->configModel->get('hoursview_all_caption', '')
         ];
         return $levels_captions;
     }
