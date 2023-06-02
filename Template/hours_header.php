@@ -6,11 +6,11 @@
 
         <div class="thv-box-item">
 
-            <div class="thv-weak-color">
+            <div class="thv-weak-color tvh-box-single-item-20">
                 <?= $captions['level_1'] ?>:
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
@@ -19,7 +19,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-40">
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
@@ -29,7 +29,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
@@ -48,11 +48,11 @@
 
         <div class="thv-box-item">
 
-            <div class="thv-weak-color">
+            <div class="thv-weak-color tvh-box-single-item-20">
                 <?= $captions['level_2'] ?>:
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
@@ -61,7 +61,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-40">
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
@@ -71,7 +71,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
@@ -90,11 +90,11 @@
 
         <div class="thv-box-item">
 
-            <div class="thv-weak-color">
+            <div class="thv-weak-color tvh-box-single-item-20">
                 <?= $captions['level_3'] ?>:
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
@@ -103,7 +103,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-40">
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
@@ -113,7 +113,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
@@ -132,11 +132,11 @@
 
         <div class="thv-box-item">
 
-            <div class="thv-weak-color">
+            <div class="thv-weak-color tvh-box-single-item-20">
                 <?= $captions['level_4'] ?>:
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
@@ -145,7 +145,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-40">
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
@@ -155,7 +155,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>
@@ -174,11 +174,11 @@
 
         <div class="thv-box-item thv-box-all">
 
-            <div class="thv-weak-color">
-                All:
+            <div class="thv-weak-color tvh-box-single-item-20">
+                <?= $captions['all'] ?>:
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Estimated'); ?>:
                 </span>
@@ -187,7 +187,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-40">
                 <span class="thv-title-color">
                     <?= t('Spent'); ?>:
                 </span>
@@ -197,7 +197,7 @@
                 </span>
             </div>
 
-            <div>
+            <div class="tvh-box-single-item-20">
                 <span class="thv-title-color">
                     <?= t('Remaining'); ?>:
                 </span>

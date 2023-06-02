@@ -68,8 +68,11 @@
 	width: 100%;
   }
 }
-.thv-box-item div {
-	width: 25%;
+.thv-box-item .tvh-box-single-item-20 {
+	width: 20%;
+}
+.thv-box-item .tvh-box-single-item-40 {
+	width: 40%;
 }
 .thv-box-item:last-child {
 	margin-bottom: 1em;
