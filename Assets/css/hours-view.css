@@ -32,6 +32,11 @@
 	margin-left:  .5em;
 }
 
+.thv-column-wrapper {
+	margin-left: 0.5em;
+	text-align: right;
+}
+
 .thv-box-wrapper {
 	display: flex;
 	width: 100%;
