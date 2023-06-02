@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v1.13
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Remaining time calculation improved.
+- Overtime calculation added.
+- Changed Task summary layout a bit.
+- Levels are hidden now, if no caption is set.
+- Added spent+overtime calculation in the hour headings.
+- Added remaining time in column header on board.
+- Added remaining time on card.
+
+
 ## v1.12
 
 ### What's Changed
