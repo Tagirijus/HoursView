@@ -14,6 +14,8 @@ $hover_text .= t('Overtime') . ': ' . $this->hoursViewHelper->floatToHHMM($times
 
 <div class="thv-column-wrapper thv-font-small" title="<?= $hover_text ?>">
     <span class="ui-helper-hidden-accessible"><?= $hover_text ?></span>
-    <span class="thv-spent-color"><?= $this->hoursViewHelper->floatToHHMM(round($times['spent'], 2)); ?></span>/<span class="thv-estimated-color"><?= $this->hoursViewHelper->floatToHHMM(round($times['estimated'], 2)); ?></span><br>
+    <span class="thv-font-small">
+        <span class="thv-spent-color"><?= $this->hoursViewHelper->floatToHHMM(round($times['spent'], 2)); ?></span>/<span class="thv-estimated-color"><?= $this->hoursViewHelper->floatToHHMM(round($times['estimated'], 2)); ?></span><br>
+    </span>
     <span class="thv-remaining-color thv-font-big"><?= $this->hoursViewHelper->floatToHHMM(round($times['remaining'], 2)); ?></span>
 </div>
