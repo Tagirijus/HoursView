@@ -80,6 +80,9 @@
 .thv-font-small {
 	font-size: .75em;
 }
+.thv-font-weak {
+	opacity: .3;
+}
 
 /* Task Progress Bar - based on TaskProgressBar plugin by Valentino Pesce */
 .container-task-progress-bar

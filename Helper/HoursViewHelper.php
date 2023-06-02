@@ -11,30 +11,11 @@ use Kanboard\Model\SubtaskModel;
 class HoursViewHelper extends Base
 {
     /**
-     * Calculates the remaining time for the given estimated
-     * and the spent time. In case prevent_negative is True,
-     * it returns, for example, no negative values, but
-     * 0 then.
-     *
-     * @param  float  $estimated
-     * @param  float  $spent
-     * @param  boolean $prevent_negative
-     * @return float
-     */
-    public function calculateRemaining($estimated, $spent, $prevent_negative = True)
-    {
-        if ($estimated - $spent < 0 && $prevent_negative) {
-            return 0;
-        } else {
-            return $estimated - $spent;
-        }
-    }
-
-    /**
      * Get the estimated and spent times in the columns for
      * the total (all) and the levels (level_1, level_2, ...).
      *
      * New since v1.2.0: remaining
+     * New since v1.13.0: overtime
      *
      *
      * Array output:
@@ -44,24 +25,28 @@ class HoursViewHelper extends Base
      *         '_total' => [
      *             'estimated' => 8,
      *             'spent' => 6.5,
-     *             'remaining' => 1.5
+     *             'remaining' => 1.5,
+     *             'overtime' => 0
      *         ],
      *         'column b' => [
      *             'estimated' => 5,
      *             'spent' => 4.5,
-     *             'remaining' => 0.5
+     *             'remaining' => 0.5,
+     *             'overtime' => 0
      *         ]
      *     ],
      *     'level_1' => [
      *         '_total' => [
      *             'estimated' => 7,
      *             'spent' => 5.5,
-     *             'remaining' => 1.5
+     *             'remaining' => 1.5,
+     *             'overtime' => 0
      *         ],
      *         'column a' => [
      *             'estimated' => 2,
-     *             'spent' => 1,
-     *             'remaining' => 1
+     *             'spent' => 3,
+     *             'remaining' => 0,
+     *             'overtime' => 1
      *         ]
      *     ],
      *     'level_2' => ...
@@ -84,7 +69,8 @@ class HoursViewHelper extends Base
             '_total' => [
                 'estimated' => 0,
                 'spent' => 0,
-                'remaining' => 0
+                'remaining' => 0,
+                'overtime' => 0
             ]
         ];
         $level_1 = $all;
@@ -108,12 +94,14 @@ class HoursViewHelper extends Base
             // all: column times
             $all[$col_name]['estimated'] += $task['time_estimated'];
             $all[$col_name]['spent'] += $task['time_spent'];
-            $all[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $all[$col_name]['remaining'] += $this->getRemainingTimeForTask($task);
+            $all[$col_name]['overtime'] += $this->getOvertimeForTask($task);
 
             // all: total times
             $all['_total']['estimated'] += $task['time_estimated'];
             $all['_total']['spent'] += $task['time_spent'];
-            $all['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $all['_total']['remaining'] += $this->getRemainingTimeForTask($task);
+            $all['_total']['overtime'] += $this->getOvertimeForTask($task);
             $this->modifyHasTimes($all);
 
 
@@ -160,7 +148,7 @@ class HoursViewHelper extends Base
     protected function setTimeCalcKey(&$arr, $col_name)
     {
         if (!isset($arr[$col_name])) {
-            $arr[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
+            $arr[$col_name] = ['estimated' => 0, 'spent' => 0, 'remaining' => 0, 'overtime' => 0];
         }
     }
 
@@ -180,12 +168,14 @@ class HoursViewHelper extends Base
             // dashbord: column times
             $level[$col_name]['estimated'] += $task['time_estimated'];
             $level[$col_name]['spent'] += $task['time_spent'];
-            $level[$col_name]['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $level[$col_name]['remaining'] += $this->getRemainingTimeForTask($task);
+            $level[$col_name]['overtime'] += $this->getOvertimeForTask($task);
 
             // level: total times
             $level['_total']['estimated'] += $task['time_estimated'];
             $level['_total']['spent'] += $task['time_spent'];
-            $level['_total']['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+            $level['_total']['remaining'] += $this->getRemainingTimeForTask($task);
+            $level['_total']['overtime'] += $this->getOvertimeForTask($task);
             $this->modifyHasTimes($level);
         }
     }
@@ -217,7 +207,8 @@ class HoursViewHelper extends Base
      * [
      *     'estimated' => 2,
      *     'spent' => 1,
-     *     'remaining' => 1
+     *     'remaining' => 1,
+     *     'overtime' => 0
      * ]
      *
      * @param  array $column
@@ -225,12 +216,13 @@ class HoursViewHelper extends Base
      */
     public function getTimesForColumn($column)
     {
-        $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0];
+        $out = ['estimated' => 0, 'spent' => 0, 'remaining' => 0, 'overtime' => 0];
         if (isset($column['tasks'])) {
             foreach ($column['tasks'] as $task) {
                 $out['estimated'] += $task['time_estimated'];
                 $out['spent'] += $task['time_spent'];
-                $out['remaining'] += $this->calculateRemaining($task['time_estimated'], $task['time_spent']);
+                $out['remaining'] += $this->getRemainingTimeForTask($task);
+                $out['overtime'] += $this->getOvertimeForTask($task);
             }
         }
         return $out;
