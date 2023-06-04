@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.15
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Added progress bar under task summary on task site.
+- Moved percentage-calculation into a dedicated method for it.
+- Added percent number in the task list.
+- Added percent number on home screen per project.
+- Added option for the user to chose which level to use for the calculation on the home for the projects.
+
+
 ## v1.14
 
 ### What's Changed
