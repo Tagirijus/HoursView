@@ -17,5 +17,16 @@
     <span class="thv-remaining-color">
         <?= $this->hoursViewHelper->floatToHHMM($times['all']['_total']['remaining']); ?>h
     </span>
+    <span></span>
+
+    <span>
+        <?php
+            $pseudo_task = [
+                'time_estimated' => $times['all']['_total']['estimated'],
+                'time_spent' => $times['all']['_total']['spent'],
+            ];
+        ?>
+        <?= $this->hoursViewHelper->getPercentForTaskAsString($pseudo_task, '%', true); ?>
+    </span>
 
 </div>
