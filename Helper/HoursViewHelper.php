@@ -367,18 +367,28 @@ class HoursViewHelper extends Base
     }
 
     /**
-     * Get configuration for progress bar.
+     * Get configuration for plugin as array.
      *
      * @return array
      */
-    public function getProgressBarConfig()
+    public function getConfig()
     {
-        $progressbar_config = [
-            'enabled' => $this->configModel->get('hoursview_progressbar_enabled', 1),
-            '0_opacity' => $this->configModel->get('hoursview_progressbar_0_opacity', 0.15),
-            'opacity' => $this->configModel->get('hoursview_progressbar_opacity', 1)
+        return [
+            'title' => t('HoursView') . ' &gt; ' . t('Settings'),
+            'level_1_columns' => $this->configModel->get('hoursview_level_1_columns', ''),
+            'level_2_columns' => $this->configModel->get('hoursview_level_2_columns', ''),
+            'level_3_columns' => $this->configModel->get('hoursview_level_3_columns', ''),
+            'level_4_columns' => $this->configModel->get('hoursview_level_4_columns', ''),
+            'level_1_caption' => $this->configModel->get('hoursview_level_1_caption', ''),
+            'level_2_caption' => $this->configModel->get('hoursview_level_2_caption', ''),
+            'level_3_caption' => $this->configModel->get('hoursview_level_3_caption', ''),
+            'level_4_caption' => $this->configModel->get('hoursview_level_4_caption', ''),
+            'all_caption' => $this->configModel->get('hoursview_all_caption', ''),
+            'progressbar_enabled' => $this->configModel->get('hoursview_progressbar_enabled', 1),
+            'progressbar_opacity' => $this->configModel->get('hoursview_progressbar_opacity', 1),
+            'progressbar_0_opacity' => $this->configModel->get('hoursview_progressbar_0_opacity', 0.15),
+            'progress_home_project_level' => $this->configModel->get('hoursview_progress_home_project_level', 'all'),
         ];
-        return $progressbar_config;
     }
 
     /**

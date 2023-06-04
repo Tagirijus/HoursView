@@ -16,8 +16,8 @@ return array(
     'Time remaining:' => 'Übrige Zeit:',
     'estimated' => 'erwartet',
     'spent' => 'aufgewendet',
-    'Progress bar' => 'Fortschrittsbalken',
-    'Configure the progress bar on the task cards.' => 'Kofigurieren SIe den Fortschrittsbalken auf den Task-Karten.',
+    'Progress' => 'Fortschritt',
+    'Configure the progress (bar) on the task cards.' => 'Kofiguriere den Fortschritt(sbalken) auf den Task-Karten.',
     'Progress bar on board cards' => 'Fortschrittsbalken auf Board-Karten',
     'enabled' => 'aktiviert',
     'Progress bar opacity when not started' => 'Fortschrittsbalken Sichtbarkeit (opacity) wenn Task noch nicht gestartet',
@@ -25,4 +25,5 @@ return array(
     'Leave empty to hide' => 'Leer lassen zum Verstecken',
     'If empty, time will always be 0' => 'Wenn leer, wird Zeit immer 0 sein',
     'Time remaining, spent and estimated' => 'Übrige, aufgewendete und erwartete Zeit',
+    'Level or All to use for the project times on home' => 'Level oder All was für die Projektzeiten auf Home genutzt werden soll',
 );

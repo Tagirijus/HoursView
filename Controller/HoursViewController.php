@@ -14,21 +14,11 @@ class HoursViewController extends \Kanboard\Controller\PluginController
      */
     public function show()
     {
-        $this->response->html($this->helper->layout->config('HoursView:config/hoursview_config', [
-            'title' => t('HoursView') . ' &gt; ' . t('Settings'),
-            'level_1_columns' => $this->configModel->get('hoursview_level_1_columns', ''),
-            'level_2_columns' => $this->configModel->get('hoursview_level_2_columns', ''),
-            'level_3_columns' => $this->configModel->get('hoursview_level_3_columns', ''),
-            'level_4_columns' => $this->configModel->get('hoursview_level_4_columns', ''),
-            'level_1_caption' => $this->configModel->get('hoursview_level_1_caption', ''),
-            'level_2_caption' => $this->configModel->get('hoursview_level_2_caption', ''),
-            'level_3_caption' => $this->configModel->get('hoursview_level_3_caption', ''),
-            'level_4_caption' => $this->configModel->get('hoursview_level_4_caption', ''),
-            'all_caption' => $this->configModel->get('hoursview_all_caption', ''),
-            'progressbar_enabled' => $this->configModel->get('hoursview_progressbar_enabled', 1),
-            'progressbar_opacity' => $this->configModel->get('hoursview_progressbar_opacity', 1),
-            'progressbar_0_opacity' => $this->configModel->get('hoursview_progressbar_0_opacity', 0.15)
-        ]));
+        // !!!!!
+        // When I want to add new config options, I also have to add them
+        // in the HoursViewHelper.php in the getConfig() Method !
+        // !!!!!
+        $this->response->html($this->helper->layout->config('HoursView:config/hoursview_config', $this->helper->hoursViewHelper->getConfig()));
     }
 
     /**
@@ -50,7 +40,8 @@ class HoursViewController extends \Kanboard\Controller\PluginController
             'hoursview_all_caption' => $form['all_caption'],
             'hoursview_progressbar_enabled' => isset($form['progressbar_enabled']) ? 1 : 0,
             'hoursview_progressbar_opacity' => $form['progressbar_opacity'],
-            'hoursview_progressbar_0_opacity' => $form['progressbar_0_opacity']
+            'hoursview_progressbar_0_opacity' => $form['progressbar_0_opacity'],
+            'hoursview_progress_home_project_level' => $form['progress_home_project_level'],
         ];
 
         $this->languageModel->loadCurrentLanguage();

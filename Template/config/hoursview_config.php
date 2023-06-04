@@ -122,14 +122,14 @@
     <br>
 
 
-    <!-- PERCENTAGE -->
+    <!-- PROGRESS -->
 
     <p>
-        <h3><?= t('Progress bar') ?></h3>
+        <h3><?= t('Progress') ?></h3>
     </p>
 
     <p>
-        <?= t('Configure the progress bar on the task cards.') ?>
+        <?= t('Configure the progress (bar) on the task cards.') ?>
     </p>
     <div class="task-form-container">
 
@@ -154,6 +154,15 @@
             <?= $this->form->text('progressbar_opacity', ['progressbar_opacity' => $progressbar_opacity], [], [
                 'autofocus',
                 'tabindex="8"'
+            ]) ?>
+        </div>
+
+        <div class="task-form-main-column">
+            <?= $this->form->label(t('Level or All to use for the project times on home'), 'progress_home_project_level') ?>
+            <?= $this->form->text('progress_home_project_level', ['progress_home_project_level' => $progress_home_project_level], [], [
+                'autofocus',
+                'tabindex="9"',
+                'placeholder="e.g. \'level_1\' or \'all\'"'
             ]) ?>
         </div>
 

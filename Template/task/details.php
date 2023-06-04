@@ -183,10 +183,10 @@
     <!-- Task Progress Bar -->
 
     <?php
-        $progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
+        $hoursview_config = $this->hoursViewHelper->getConfig();
     ?>
 
-    <?php if ($task['time_estimated'] > 0 && $progressbar_config['enabled'] == 1): ?>
+    <?php if ($task['time_estimated'] > 0 && $hoursview_config['progressbar_enabled'] == 1): ?>
 
         <?php
             $percent = $this->hoursViewHelper->getPercentForTask($task);

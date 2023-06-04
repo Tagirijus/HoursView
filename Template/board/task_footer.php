@@ -1,6 +1,6 @@
 <?php
 
-$progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
+$hoursview_config = $this->hoursViewHelper->getConfig();
 
 ?>
 
@@ -144,16 +144,16 @@ $progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
 
         <!-- Task Progress Bar -->
 
-        <?php if ($task['time_estimated'] > 0 && $progressbar_config['enabled'] == 1): ?>
+        <?php if ($task['time_estimated'] > 0 && $hoursview_config['progressbar_enabled'] == 1): ?>
 
             <?php
                 $percent = $this->hoursViewHelper->getPercentForTask($task);
                 $percent_txt = $percent;
-                $percent_opacity = $progressbar_config['opacity'];
+                $percent_opacity = $hoursview_config['progressbar_opacity'];
                 if ($percent > 100) {
                     $percent = 100;
                 } elseif ($percent == 0) {
-                    $percent_opacity = $progressbar_config['0_opacity'];
+                    $percent_opacity = $hoursview_config['progressbar_0_opacity'];
                 }
             ?>
 
