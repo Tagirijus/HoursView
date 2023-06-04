@@ -470,4 +470,27 @@ class HoursViewHelper extends Base
     {
         return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, true);
     }
+
+    /**
+     * Calculate the percent with the given task.
+     * Use the times for this.
+     *
+     * Future idea:
+     *    Maybe use the amount of subtasks, if noe
+     *    estimstd times exist at all.
+     *
+     * @param  array $task
+     * @return integer
+     */
+    public function getPercentForTask($task)
+    {
+        $out = 0;
+
+        // calculate percentage from given times
+        if (isset($task['time_estimated']) && isset($task['time_spent'])) {
+            $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+        }
+
+        return $out;
+    }
 }

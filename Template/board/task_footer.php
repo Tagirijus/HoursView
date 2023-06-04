@@ -147,7 +147,7 @@ $progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
         <?php if ($task['time_estimated'] > 0 && $progressbar_config['enabled'] == 1): ?>
 
             <?php
-                $percent = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+                $percent = $this->hoursViewHelper->getPercentForTask($task);
                 $percent_txt = $percent;
                 $percent_opacity = $progressbar_config['opacity'];
                 if ($percent > 100) {
