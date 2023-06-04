@@ -480,15 +480,52 @@ class HoursViewHelper extends Base
      *    estimstd times exist at all.
      *
      * @param  array $task
+     * @param  bool $overtime
      * @return integer
      */
-    public function getPercentForTask($task)
+    public function getPercentForTask($task, $overtime = false)
     {
         $out = 0;
 
         // calculate percentage from given times
         if (isset($task['time_estimated']) && isset($task['time_spent'])) {
             $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+        }
+
+        // consider overtime
+        if ($overtime) {
+            if ($out > 100) {
+                $out = $out - 100;
+            } else {
+                $out = 0;
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Get percentage for a task according to its
+     * spent time and estimated time (or in the future
+     * maybe depending on the subtasks) and render
+     * it as a string with percentage symbol.
+     *
+     * Also there is the option to add additional info like
+     * the overtime.
+     *
+     * @param  array $task
+     * @param  string $symbol
+     * @param  bool $overtime
+     * @return string
+     */
+    public function getPercentForTaskAsString($task, $symbol = '%', $overtime = false)
+    {
+        $percent_over = $this->getPercentForTask($task, true);
+
+        if ($overtime && $percent_over > 0) {
+            $out = '100' . $symbol . ' (+' . $this->getPercentForTask($task, true) . $symbol . ')';
+        } else {
+            $out = $this->getPercentForTask($task, false) . $symbol;
         }
 
         return $out;

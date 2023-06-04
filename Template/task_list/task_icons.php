@@ -19,7 +19,7 @@
 
     <?php if (! empty($task['time_estimated']) || ! empty($task['time_spent'])): ?>
         <span class="task-time-estimated" title="<?= t('Time spent and estimated') ?>">
-            <span class="ui-helper-hidden-accessible"><?= t('Time spent and estimated') ?> </span><?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?> / <?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_estimated'])) ?>h
+            <span class="ui-helper-hidden-accessible"><?= t('Time spent and estimated') ?> </span><?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_spent'])) ?> / <?= $this->text->e($this->hoursViewHelper->floatToHHMM($task['time_estimated'])) ?>h - <?= $this->hoursViewHelper->getPercentForTaskAsString($task, '%', true) ?>
         </span>
     <?php endif ?>
 
