@@ -179,5 +179,31 @@
         )) ?>
     <?php endif ?>
 
+
+    <!-- Task Progress Bar -->
+
+    <?php
+        $progressbar_config = $this->hoursViewHelper->getProgressBarConfig();
+    ?>
+
+    <?php if ($task['time_estimated'] > 0 && $progressbar_config['enabled'] == 1): ?>
+
+        <?php
+            $percent = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+            $percent_txt = $percent;
+            $percent_opacity = 1;
+            if ($percent > 100) {
+                $percent = 100;
+            }
+        ?>
+
+        <div class="container-task-progress-bar task-summary-progress-bar" style="opacity: <?= $percent_opacity; ?>;">
+            <div class="task-progress-bar" style="width:<?= $percent . '%'; ?>;">
+                <?= $percent_txt . '%' ?>
+            </div>
+        </div>
+
+    <?php endif ?>
+
     <?= $this->hook->render('template:task:details:bottom', array('task' => $task)) ?>
 </section>

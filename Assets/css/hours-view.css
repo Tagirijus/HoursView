@@ -116,3 +116,13 @@
 	font-weight: bold;
 	white-space: nowrap;
 }
+
+.task-summary-progress-bar
+{
+	margin: 1em 0em;
+	text-align: right;
+}
+.task-summary-progress-bar div
+{
+	padding-top: .3em;
+}
