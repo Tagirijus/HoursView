@@ -25,5 +25,5 @@ return array(
     'Leave empty to hide' => 'Leer lassen zum Verstecken',
     'If empty, time will always be 0' => 'Wenn leer, wird Zeit immer 0 sein',
     'Time remaining, spent and estimated' => 'Übrige, aufgewendete und erwartete Zeit',
-    'Level or All to use for the project times on home' => 'Level oder All was für die Projektzeiten auf Home genutzt werden soll',
+    'Level or All to use for the project times on home. You can use comma seperated values to included more than one level; e.g.: "level_1,level_3"' => 'Level oder All was für die Projektzeiten auf Home genutzt werden soll. Sie können Komma getrennt mehrere Werte angeben, um mehr als nur ein Level zu nutzen; z.B. "level_1,level_3"',
 );

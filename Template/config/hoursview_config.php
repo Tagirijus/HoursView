@@ -158,7 +158,7 @@
         </div>
 
         <div class="task-form-main-column">
-            <?= $this->form->label(t('Level or All to use for the project times on home'), 'progress_home_project_level') ?>
+            <?= $this->form->label(t('Level or All to use for the project times on home. You can use comma seperated values to included more than one level; e.g.: "level_1,level_3"'), 'progress_home_project_level') ?>
             <?= $this->form->text('progress_home_project_level', ['progress_home_project_level' => $progress_home_project_level], [], [
                 'autofocus',
                 'tabindex="9"',

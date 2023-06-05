@@ -499,7 +499,7 @@ class HoursViewHelper extends Base
 
         // calculate percentage from given times
         if (isset($task['time_estimated']) && isset($task['time_spent'])) {
-            if ($task['time_spent'] != 0) {
+            if ($task['time_estimated'] != 0) {
                 $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
             } else {
                 $out = 100;
@@ -540,6 +540,40 @@ class HoursViewHelper extends Base
             $out = '100' . $symbol . ' (+' . $this->getPercentForTask($task, true) . $symbol . ')';
         } else {
             $out = $this->getPercentForTask($task, false) . $symbol;
+        }
+
+        return $out;
+    }
+
+    /**
+     * According to the wanted levels from the config,
+     * sum up all the respecting time values for e.g.
+     * the "project_times_summary_single.php".
+     *
+     * @param  array $times
+     * @return array
+     */
+    public function prepareProjectTimesWithConfig($times)
+    {
+        $out = [
+            'estimated' => 0,
+            'spent' => 0,
+            'remaining' => 0,
+            'overtime' => 0,
+        ];
+
+        // Get levels from config
+        $levels = explode(',', $this->configModel->get('hoursview_progress_home_project_level', 'all'));
+
+        // iter through levels, while checking if they exist in the $times as key
+        foreach ($levels as $level) {
+            $level_trimmed = trim($level);
+            if (array_key_exists($level, $times)) {
+                $out['estimated'] += $times[$level]['_total']['estimated'];
+                $out['spent'] += $times[$level]['_total']['spent'];
+                $out['remaining'] += $times[$level]['_total']['remaining'];
+                $out['overtime'] += $times[$level]['_total']['overtime'];
+            }
         }
 
         return $out;
