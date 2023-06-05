@@ -109,12 +109,12 @@
                     <?php endif ?>
                     <?php if ($task['time_estimated'] && $task['time_spent']): ?>
                     <li>
-                        <strong><?= t('Time remaining:') ?></strong>
-                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?></span>
-                    </li>
-                    <li>
                         <strong><?= t('Overtime') . ':' ?></strong>
                         <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getOvertimeForTask($task))) ?></span>
+                    </li>
+                    <li>
+                        <strong><?= t('Time remaining:') ?></strong>
+                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?></span>
                     </li>
                     <?php endif ?>
 
