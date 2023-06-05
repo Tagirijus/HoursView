@@ -411,7 +411,7 @@ class HoursViewHelper extends Base
             if (!empty($subtasks) && $considerSubtasks) {
                 $tmp = $this->getRemainingOrOvertimeFromSubtasks($subtasks, $overtime);
 
-            // calculate remaining or overtime based only on task itsekf
+            // calculate remaining or overtime based only on task itself
             } else {
                 if ($overtime) {
                     $tmp = (float) $task['time_spent'] - (float) $task['time_estimated'];
