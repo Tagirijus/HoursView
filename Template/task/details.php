@@ -114,7 +114,7 @@
                     </li>
                     <li>
                         <strong><?= t('Time remaining:') ?></strong>
-                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?></span>
+                        <span><?= t('%s h', $this->hoursViewHelper->floatToHHMM($this->hoursViewHelper->getRemainingTimeForTask($task))) ?> <i class="thv-font-small">(<?= $this->hoursViewHelper->getSlowerOrFasterThanEstimatedForTaskAsString($task) ?>)</i></span>
                     </li>
                     <?php endif ?>
 

@@ -399,9 +399,10 @@ class HoursViewHelper extends Base
      * @param  array $task
      * @param  bool $considerSubtasks
      * @param  bool $overtime
+     * @param  bool $considerSubtaskStatus
      * @return float
      */
-    public function getRemainingOrOvertimeForTask($task, $considerSubtasks = true, $overtime = false)
+    public function getRemainingOrOvertimeForTask($task, $considerSubtasks = true, $overtime = false, $considerSubtaskStatus = true)
     {
         $out = 0.0;
         if (isset($task['id'])) {
@@ -409,7 +410,7 @@ class HoursViewHelper extends Base
 
             // calculate remaining or overtime based on subtasks
             if (!empty($subtasks) && $considerSubtasks) {
-                $tmp = $this->getRemainingOrOvertimeFromSubtasks($subtasks, $overtime);
+                $tmp = $this->getRemainingOrOvertimeFromSubtasks($subtasks, $overtime, $considerSubtaskStatus);
 
             // calculate remaining or overtime based only on task itself
             } else {
@@ -435,9 +436,10 @@ class HoursViewHelper extends Base
      *
      * @param  array $subtasks
      * @param  bool $overtime
+     * @param  bool $considerSubtaskStatus
      * @return float
      */
-    protected function getRemainingOrOvertimeFromSubtasks($subtasks, $overtime = false)
+    protected function getRemainingOrOvertimeFromSubtasks($subtasks, $overtime = false, $considerSubtaskStatus = true)
     {
         $out = 0.0;
         foreach ($subtasks as $subtask) {
@@ -446,7 +448,7 @@ class HoursViewHelper extends Base
             } else {
                 // if the subtask is done yet the spent time is below the estimated time,
                 // only use the lower spent time as the estimated time then
-                if ($subtask['status'] == 2 && $subtask['time_spent'] < $subtask['time_estimated']) {
+                if ($subtask['status'] == 2 && $subtask['time_spent'] < $subtask['time_estimated'] && $considerSubtaskStatus) {
                     $sub_estimated = $subtask['time_spent'];
                 } else {
                     $sub_estimated = $subtask['time_estimated'];
@@ -471,11 +473,12 @@ class HoursViewHelper extends Base
      *
      * @param  array  $task
      * @param  boolean $considerSubtasks
+     * @param  bool $considerSubtaskStatus
      * @return float
      */
-    public function getRemainingTimeForTask($task, $considerSubtasks = true)
+    public function getRemainingTimeForTask($task, $considerSubtasks = true, $considerSubtaskStatus = true)
     {
-        return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, false);
+        return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, false, $considerSubtaskStatus);
     }
 
     /**
@@ -489,6 +492,44 @@ class HoursViewHelper extends Base
     public function getOvertimeForTask($task, $considerSubtasks = true)
     {
         return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, true);
+    }
+
+    /**
+     * With the consideration of the subtask status, a subtask
+     * might be done earlier than estimated. This way there might be
+     * an available overhead-time. Or even vice versa and there
+     * is less time left, since I mis-estimated the times.
+     *
+     * In either way this method os for calculation the difference.
+     *
+     * @param  array $task
+     * @return float
+     */
+    public function getSlowerOrFasterThanEstimatedForTask($task)
+    {
+        $remaining = $this->getRemainingTimeForTask($task);
+        $estimated = $task['time_estimated'];
+        $spent = $task['time_spent'];
+        return $estimated - $spent - $remaining;
+    }
+
+    /**
+     * Wrapper for the getSlowerOrFasterThanEstimatedForTask()
+     * method to render the ouput with correct sign.
+     *
+     * @param  array $task
+     * @return string
+     */
+    public function getSlowerOrFasterThanEstimatedForTaskAsString($task)
+    {
+        $slowerOrFaster = $this->getSlowerOrFasterThanEstimatedForTask($task);
+        if ($slowerOrFaster > 0) {
+            $out = '+';
+        } else {
+            $out = '';
+        }
+        $out .= $this->floatToHHMM($slowerOrFaster) . ' h';
+        return $out;
     }
 
     /**
