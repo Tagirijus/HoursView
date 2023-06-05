@@ -414,12 +414,15 @@ class HoursViewHelper extends Base
             // calculate remaining or overtime based only on task itself
             } else {
                 if ($overtime) {
-                    $tmp = (float) $task['time_spent'] - (float) $task['time_estimated'];
+                    $tmp = $task['time_spent'] - $task['time_estimated'];
                 } else {
-                    $tmp = (float) $task['time_estimated'] - (float) $task['time_spent'];
+                    $tmp = $task['time_estimated'] - $task['time_spent'];
                 }
             }
 
+            // here e.g. for overtime there can only be positive
+            // values; otherwise there probably is no overtime
+            // at all
             if ($tmp > 0) {
                 $out = $tmp;
             }
@@ -439,12 +442,19 @@ class HoursViewHelper extends Base
         $out = 0.0;
         foreach ($subtasks as $subtask) {
             if ($overtime) {
-                $tmp = (float) $subtask['time_spent'] - (float) $subtask['time_estimated'];
+                $tmp = $subtask['time_spent'] - $subtask['time_estimated'];
             } else {
-                $tmp = (float) $subtask['time_estimated'] - (float) $subtask['time_spent'];
+                // if the subtask is done yet the spent time is below the estimated time,
+                // only use the lower spent time as the estimated time then
+                if ($subtask['status'] == 2 && $subtask['time_spent'] < $subtask['time_estimated']) {
+                    $sub_estimated = $subtask['time_spent'];
+                } else {
+                    $sub_estimated = $subtask['time_estimated'];
+                }
+                $tmp = $sub_estimated - $subtask['time_spent'];
             }
 
-            // only add time as spending, as long as the spent time of th subtask
+            // only add time as spending, as long as the spent time of the subtask
             // does not exceed the estimated time, so that in total
             // the remaining time will always represent the actual estimated
             // time throughout all subtasks
@@ -497,10 +507,41 @@ class HoursViewHelper extends Base
     {
         $out = 0;
 
-        // calculate percentage from given times
+        // Calculate percentage from given times, while considering
+        // the possible subtask times. These can vary, since
+        // done subtasks will use the spent time as their
+        // estimated time, if they are done already. This would
+        // mean less estimated overall time after all.
+        // To do so I won't simply calculate "spent / estimated"
+        // for the percentage, but rather:
+        //      "(estimated - remaining) / estimated"
+        //
+        // Yet I can only do so, if the given $task is really a
+        // task array with an 'id'; otherwise just do the normal
+        // calculation instead ...
         if (isset($task['time_estimated']) && isset($task['time_spent'])) {
-            if ($task['time_estimated'] != 0) {
-                $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+            $estimated = $task['time_estimated'];
+
+            // the given task must be a normal task-array
+            if (array_key_exists('id', $task)) {
+                $remaining = $this->getRemainingTimeForTask($task);
+                $spent = $estimated - $remaining;
+
+            // the given task might be a pseudo_task from
+            // the project_times_summary_single.php; so no
+            // real task-array with an id is given, but
+            // probably a pre-calculated remaining instead
+            } elseif (array_key_exists('time_remaining', $task)) {
+                $remaining = $task['time_remaining'];
+                $spent = $estimated - $remaining;
+
+            // fallback: just use the normal time_spent
+            } else {
+                $spent = $task['time_spent'];
+            }
+
+            if ($estimated != 0) {
+                $out = round($spent / $estimated * 100, 0);
             } else {
                 $out = 100;
             }

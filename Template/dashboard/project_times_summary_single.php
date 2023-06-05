@@ -27,6 +27,7 @@
             $pseudo_task = [
                 'time_estimated' => $times['estimated'],
                 'time_spent' => $times['spent'],
+                'time_remaining' => $times['remaining'],
             ];
         ?>
         <?= $this->hoursViewHelper->getPercentForTaskAsString($pseudo_task, '%', true); ?>
