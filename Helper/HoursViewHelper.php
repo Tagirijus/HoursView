@@ -499,7 +499,11 @@ class HoursViewHelper extends Base
 
         // calculate percentage from given times
         if (isset($task['time_estimated']) && isset($task['time_spent'])) {
-            $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+            if ($task['time_spent'] != 0) {
+                $out = round($task['time_spent'] / $task['time_estimated'] * 100, 0);
+            } else {
+                $out = 100;
+            }
         }
 
         // consider overtime
