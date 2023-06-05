@@ -16,6 +16,9 @@ class Plugin extends Base
         // CSS - Asset Hook
         $this->hook->on('template:layout:css', array('template' => 'plugins/HoursView/Assets/css/hours-view.min.css'));
 
+        // JS - Asset Hook
+        $this->hook->on('template:layout:js', array('template' => 'plugins/HoursView/Assets/js/subtask-toggle-refresh.min.js'));
+
         // Template Override
         $this->template->setTemplateOverride('search/results', 'HoursView:search/results');
         $this->template->setTemplateOverride('task/details', 'HoursView:task/details');
