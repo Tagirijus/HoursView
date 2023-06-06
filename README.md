@@ -25,7 +25,7 @@ Compatibility
 #### Other Plugins & Action Plugins
 - _No known issues_
 #### Core Files & Templates
-- `05` Template Override
+- `06` Template Override
 - _No database changes_
 
 
