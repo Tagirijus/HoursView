@@ -1,6 +1,16 @@
 # Changelog
 
 
+## v1.16
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Slower / faster time calculation added. So basically a calculation, which can show (on task summary), if you worked more or less than estimated.
+- Added the new better remaining time calculation into the task list as well.
+- Some fixes.
+
+
 ## v1.15
 
 ### What's Changed
