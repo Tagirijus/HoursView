@@ -22,15 +22,21 @@
     </span>
     <span></span>
 
+
+    <?php
+        $pseudo_task = [
+            'time_estimated' => $times['estimated'],
+            'time_spent' => $times['spent'],
+            'time_remaining' => $times['remaining'],
+        ];
+        $output = $this->hoursViewHelper->getPercentForTaskAsString($pseudo_task, '%', true);
+    ?>
+    <?php if ($output == '100%'): ?>
+    <span class="thv-100-percent">
+    <?php else: ?>
     <span>
-        <?php
-            $pseudo_task = [
-                'time_estimated' => $times['estimated'],
-                'time_spent' => $times['spent'],
-                'time_remaining' => $times['remaining'],
-            ];
-        ?>
-        <?= $this->hoursViewHelper->getPercentForTaskAsString($pseudo_task, '%', true); ?>
+    <?php endif ?>
+        <?= $output; ?>
     </span>
 
 </div>
