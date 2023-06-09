@@ -397,20 +397,18 @@ class HoursViewHelper extends Base
      * If not, simply use the task times.
      *
      * @param  array $task
-     * @param  bool $considerSubtasks
      * @param  bool $overtime
-     * @param  bool $considerSubtaskStatus
      * @return float
      */
-    public function getRemainingOrOvertimeForTask($task, $considerSubtasks = true, $overtime = false, $considerSubtaskStatus = true)
+    public function getRemainingOrOvertimeForTask($task, $overtime = false)
     {
         $out = 0.0;
         if (isset($task['id'])) {
             $subtasks = $this->subtaskModel->getAll($task['id']);
 
             // calculate remaining or overtime based on subtasks
-            if (!empty($subtasks) && $considerSubtasks) {
-                $tmp = $this->getRemainingOrOvertimeFromSubtasks($subtasks, $overtime, $considerSubtaskStatus);
+            if (!empty($subtasks)) {
+                $tmp = $this->getRemainingOrOvertimeFromSubtasks($subtasks, $overtime);
 
             // calculate remaining or overtime based only on task itself
             } else {
@@ -436,10 +434,9 @@ class HoursViewHelper extends Base
      *
      * @param  array $subtasks
      * @param  bool $overtime
-     * @param  bool $considerSubtaskStatus
      * @return float
      */
-    protected function getRemainingOrOvertimeFromSubtasks($subtasks, $overtime = false, $considerSubtaskStatus = true)
+    protected function getRemainingOrOvertimeFromSubtasks($subtasks, $overtime = false)
     {
         $out = 0.0;
         foreach ($subtasks as $subtask) {
@@ -448,7 +445,7 @@ class HoursViewHelper extends Base
             } else {
                 // if the subtask is done yet the spent time is below the estimated time,
                 // only use the lower spent time as the estimated time then
-                if ($subtask['status'] == 2 && $subtask['time_spent'] < $subtask['time_estimated'] && $considerSubtaskStatus) {
+                if ($subtask['status'] == 2 && $subtask['time_spent'] < $subtask['time_estimated']) {
                     $sub_estimated = $subtask['time_spent'];
                 } else {
                     $sub_estimated = $subtask['time_estimated'];
@@ -471,27 +468,30 @@ class HoursViewHelper extends Base
      * Wrapper for "remaining time", which will use the
      * getRemainingOrOvertimeForTask method.
      *
-     * @param  array  $task
-     * @param  boolean $considerSubtasks
-     * @param  bool $considerSubtaskStatus
+     * @param  array  &$task
      * @return float
      */
-    public function getRemainingTimeForTask($task, $considerSubtasks = true, $considerSubtaskStatus = true)
+    public function getRemainingTimeForTask(&$task)
     {
-        return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, false, $considerSubtaskStatus);
+        if (!array_key_exists('time_remaining', $task)) {
+            $task['time_remaining'] = $this->getRemainingOrOvertimeForTask($task, false);
+        }
+        return $task['time_remaining'];
     }
 
     /**
      * Wrapper for "overtime", which will use the
      * getRemainingOrOvertimeForTask method.
      *
-     * @param  array  $task
-     * @param  boolean $considerSubtasks
+     * @param  array  &$task
      * @return float
      */
-    public function getOvertimeForTask($task, $considerSubtasks = true)
+    public function getOvertimeForTask(&$task)
     {
-        return $this->getRemainingOrOvertimeForTask($task, $considerSubtasks, true);
+        if (!array_key_exists('time_overtime', $task)) {
+            $task['time_overtime'] = $this->getRemainingOrOvertimeForTask($task, true);
+        }
+        return $task['time_overtime'];
     }
 
     /**
@@ -502,10 +502,10 @@ class HoursViewHelper extends Base
      *
      * In either way this method os for calculation the difference.
      *
-     * @param  array $task
+     * @param  array &$task
      * @return float
      */
-    public function getSlowerOrFasterThanEstimatedForTask($task)
+    public function getSlowerOrFasterThanEstimatedForTask(&$task)
     {
         $remaining = $this->getRemainingTimeForTask($task);
         $estimated = $task['time_estimated'];
@@ -517,10 +517,10 @@ class HoursViewHelper extends Base
      * Wrapper for the getSlowerOrFasterThanEstimatedForTask()
      * method to render the ouput with correct sign.
      *
-     * @param  array $task
+     * @param  array &$task
      * @return string
      */
-    public function getSlowerOrFasterThanEstimatedForTaskAsString($task)
+    public function getSlowerOrFasterThanEstimatedForTaskAsString(&$task)
     {
         $slowerOrFaster = $this->getSlowerOrFasterThanEstimatedForTask($task);
         if ($slowerOrFaster > 0) {
@@ -540,11 +540,11 @@ class HoursViewHelper extends Base
      *    Maybe use the amount of subtasks, if noe
      *    estimstd times exist at all.
      *
-     * @param  array $task
+     * @param  array &$task
      * @param  bool $overtime
      * @return integer
      */
-    public function getPercentForTask($task, $overtime = false)
+    public function getPercentForTask(&$task, $overtime = false)
     {
         $out = 0;
 
@@ -609,12 +609,12 @@ class HoursViewHelper extends Base
      * Also there is the option to add additional info like
      * the overtime.
      *
-     * @param  array $task
+     * @param  array &$task
      * @param  string $symbol
      * @param  bool $overtime
      * @return string
      */
-    public function getPercentForTaskAsString($task, $symbol = '%', $overtime = false)
+    public function getPercentForTaskAsString(&$task, $symbol = '%', $overtime = false)
     {
         $percent_over = $this->getPercentForTask($task, true);
 
