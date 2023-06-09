@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.17
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Improved loading times / calculation speed
+
+
 ## v1.16
 
 ### What's Changed
