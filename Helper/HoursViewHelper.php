@@ -11,6 +11,51 @@ use Kanboard\Model\SubtaskModel;
 class HoursViewHelper extends Base
 {
     /**
+     * Subtasks cach-variable:
+     * [task_id => subtask_array]
+     *
+     * @var array
+     **/
+    var $subtasks = [];
+
+    /**
+     * Check if subtasks for task exist and return
+     * the array, or otherwise fetch it from
+     * the DB.
+     *
+     * @param  integer $taskId
+     * @return array
+     */
+    public function getSubtaskByTaskId($taskId)
+    {
+        if (!array_key_exists($taskId, $this->subtasks)) {
+            $this->subtasks[$taskId] = $this->subtaskModel->getAll($taskId);
+        }
+        return $this->subtasks[$taskId];
+    }
+
+    /**
+     * Initialize the subtasks cache array with the
+     * given tasks array.
+     *
+     * @param  array $tasks
+     */
+    public function initSubtasksFromTaskIds($tasks): void
+    {
+        $ids = [];
+        foreach ($tasks as $task) {
+            $ids[] = $task['id'];
+        }
+        $all_subtasks = $this->subtaskModel->getAllByTaskIds($ids);
+        foreach ($all_subtasks as $subtask) {
+            if (!array_key_exists($subtask['task_id'], $this->subtasks)) {
+                $this->subtasks[$subtask['task_id']] = [];
+            }
+            $this->subtasks[$subtask['task_id']][] = $subtask;
+        }
+    }
+
+    /**
      * Get the estimated and spent times in the columns for
      * the total (all) and the levels (level_1, level_2, ...).
      *
@@ -226,6 +271,8 @@ class HoursViewHelper extends Base
     {
         $tasks = $this->getTasksByProjectId($projectId);
 
+        $this->initSubtasksFromTaskIds($tasks);
+
         return $this->getTimesFromTasks($tasks);
     }
 
@@ -323,6 +370,8 @@ class HoursViewHelper extends Base
             ->eq(ProjectModel::TABLE.'.is_active', ProjectModel::ACTIVE)
             ->findAll();
 
+        $this->initSubtasksFromTaskIds($tasks);
+
         return $this->getTimesFromTasks($tasks);
     }
 
@@ -404,7 +453,7 @@ class HoursViewHelper extends Base
     {
         $out = 0.0;
         if (isset($task['id'])) {
-            $subtasks = $this->subtaskModel->getAll($task['id']);
+            $subtasks = $this->getSubtaskByTaskId($task['id']);
 
             // calculate remaining or overtime based on subtasks
             if (!empty($subtasks)) {
