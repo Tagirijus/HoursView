@@ -6,6 +6,8 @@ use Kanboard\Core\Base;
 use Kanboard\Model\TaskModel;
 use Kanboard\Model\ProjectModel;
 use Kanboard\Model\SubtaskModel;
+use Kanboard\Core\Paginator;
+use Kanboard\Filter\TaskProjectsFilter;
 
 
 class HoursViewHelper extends Base
@@ -692,6 +694,49 @@ class HoursViewHelper extends Base
             }
         }
 
+        return $out;
+    }
+
+    /**
+     * Get all tasks from the the search URI,
+     * ignoring the pagination.
+     *
+     * ATTENTION:
+     *     This method might be overcomplicated, since
+     *     it uses the Paginator() class to get the
+     *     tasks. There might be a smarter way to
+     *     query the tasks with the given search string,
+     *     but I had no time to dive deeper into the
+     *     Kanboard framework to find out how. Yet
+     *     the PicoDB thing seems quite nice, though.
+     *     So maybe some day I might improve this
+     *     method or make it more logical, since it
+     *     is not that clever (to me) to use the
+     *     paginator for such a query. I do not
+     *     need "other pages" after all.
+     *
+     *     This method is only for getting ALL tasks
+     *     with the given search string.
+     *
+     * @return array
+     */
+    public function getAllTasksFromSearch()
+    {
+        $out = [];
+        $projects = $this->projectUserRoleModel->getActiveProjectsByUser($this->userSession->getId());
+        $search = urldecode($this->request->getStringParam('search'));
+        if ($search !== '' && ! empty($projects)) {
+            $paginator = new Paginator($this->container);
+            $paginator
+                ->setMax(999999)
+                ->setFormatter($this->taskListFormatter)
+                ->setQuery($this->taskLexer
+                    ->build($search)
+                    ->withFilter(new TaskProjectsFilter(array_keys($projects)))
+                    ->getQuery()
+                );
+            $out = $paginator->getCollection();
+        }
         return $out;
     }
 }

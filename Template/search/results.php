@@ -1,4 +1,6 @@
-<?php $times = $this->hoursViewHelper->getTimesFromTasks($paginator->getCollection()); ?>
+<?php
+    $times = $this->hoursViewHelper->getTimesFromTasks($this->hoursViewHelper->getAllTasksFromSearch());
+?>
 
 <table>
     <tr>
