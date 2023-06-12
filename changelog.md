@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v1.18
+
+### What's Changed
+
+_(most recent changes are listed on top):_
+- Optimized time calculation further
+- Task times on the search results now do not calculate depending on the shown tasks, but on ALL found tasks, despite the paginator page
+
+
 ## v1.17
 
 ### What's Changed
