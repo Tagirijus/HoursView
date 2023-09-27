@@ -573,7 +573,7 @@ class HoursViewHelper extends Base
      * Use the times for this.
      *
      * Future idea:
-     *    Maybe use the amount of subtasks, if noe
+     *    Maybe use the amount of subtasks, if no
      *    estimstd times exist at all.
      *
      * @param  array &$task
@@ -588,9 +588,9 @@ class HoursViewHelper extends Base
         // the possible subtask times. These can vary, since
         // done subtasks will use the spent time as their
         // estimated time, if they are done already. This would
-        // mean less estimated overall time after all.
-        // To do so I won't simply calculate "spent / estimated"
-        // for the percentage, but rather:
+        // mean less (or sometimes more!) estimated overall time
+        // after all. To do so I won't simply calculate
+        // "spent / estimated" for the percentage, but rather:
         //      "(estimated - remaining) / estimated"
         //
         // Yet I can only do so, if the given $task is really a
