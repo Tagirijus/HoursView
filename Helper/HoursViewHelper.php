@@ -37,7 +37,7 @@ class HoursViewHelper extends Base
      * @param  integer $taskId
      * @return array
      */
-    public function getSubtaskByTaskId($taskId)
+    public function getSubtasksByTaskId($taskId)
     {
         if (!array_key_exists($taskId, $this->subtasks)) {
             $this->subtasks[$taskId] = $this->subtaskModel->getAll($taskId);
@@ -440,7 +440,7 @@ class HoursViewHelper extends Base
     {
         $out = 0.0;
         if (isset($task['id'])) {
-            $subtasks = $this->getSubtaskByTaskId($task['id']);
+            $subtasks = $this->getSubtasksByTaskId($task['id']);
 
             // calculate remaining or overtime based on subtasks
             if (!empty($subtasks)) {
