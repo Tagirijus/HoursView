@@ -636,7 +636,7 @@ class HoursViewHelper extends Base
         // prevent negative percentages, which
         // might occur due to rounding issues,
         // I guess? - monkey patch!
-        if ($out < 0) {
+        if ($out <= 0) {
             $out = 0;
         }
 
