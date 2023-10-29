@@ -1,3 +1,5 @@
+**ATTENTION: I merged this plugin with [WeekHelper](https://github.com/Tagirijus/WeekHelper) since 29th October 2023 - I won't continue this plugin, I guess, since WeekHelper will include all this features and future updates from now on!**
+
 # HoursView
 
 #### _Plugin for [Kanboard](https://github.com/fguillot/kanboard "Kanboard - Kanban Project Management Software")_
